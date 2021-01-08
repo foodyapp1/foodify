@@ -4,7 +4,7 @@
                 <vs-navbar :type="type" v-model="activeItem" class="nabarx spacing-added-to-nav">
                 <div slot="title">
                 <vs-navbar-title>
-                Logo under construction
+                    Logo under construction
                 </vs-navbar-title>
                 </div>
                     <vs-navbar-item class="spacing-navbar-element">
