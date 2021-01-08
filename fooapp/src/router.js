@@ -16,6 +16,12 @@ export default new Router({
             name: 'About',
             index: 2,
             component: () => import('./views/mains/About.vue')
+        },
+        {
+            path: '/mainfeed',
+            name: 'Mainfeed',
+            index: 3,
+            component: () => import('./views/mains/Mainfeed.vue')
         }
     ],
     mode: 'history'
