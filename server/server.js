@@ -1,13 +1,22 @@
+const authroutes = require("./routes/api/loginsignup");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
+
 const { PORT, mongoUri } = require("./config");
 
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.json());
+//////////////////////////////////////////////////////////
+// var bcrypt = require("bcryptjs");
+// var salt = bcrypt.genSaltSync(10);
+// var hash = bcrypt.hashSync("admin", salt);
+// console.log(hash);
+//////////////////////////////////////////////////////////
+app.use("/api/loginsignup", authroutes);
 //////////////////////////////////////////////////////////
 mongoose
   .connect(mongoUri, {
@@ -19,5 +28,6 @@ mongoose
   .then(() => console.log("MongoDB database Connected..."))
   .catch((err) => console.log(err));
 /////////////////////////////////////////////////////////
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/", (req, res) => res.send("server working!"));
+////////////////////////////////////////////////////////
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
