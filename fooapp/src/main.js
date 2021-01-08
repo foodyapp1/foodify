@@ -22,7 +22,7 @@ Vue.config.devtools = true;
 Vue.use(Vuesax, {
   theme: {
     colors: {
-      primary: "#85C79C",
+      primary: "#F27405",
     },
   },
 });
