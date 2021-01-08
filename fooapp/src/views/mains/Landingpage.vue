@@ -64,6 +64,9 @@ import Signup from "../sign-in-up/Signup"
         width: 7.6rem;
         border-radius: 25px;
     }
+    span{
+        cursor: pointer;
+    }
     .main {
         height: 80vh;
         width: 90%;
@@ -72,92 +75,92 @@ import Signup from "../sign-in-up/Signup"
         position: relative;
     }
     .d1 {
-    position: absolute;
-    background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
-    background-size: 2700px 1500px;
-    height: 22vh;
-    width: 12vw;
-    background-position: 0 50%;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8);
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 5;
-    animation: dd1 10s 1, dd12 10s 1;
-    animation-delay: 4s, 14s;
-    border-radius: 2.6rem;
+        position: absolute;
+        background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
+        background-size: 2700px 1500px;
+        height: 22vh;
+        width: 12vw;
+        background-position: 0 50%;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8);
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        animation: dd1 10s 1, dd12 10s 1;
+        animation-delay: 4s, 14s;
+        border-radius: 2.6rem;
     }
     .d2 {
-    position: absolute;
-    background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
-    background-size: 2700px 1500px;
-    height: 40vh;
-    width: 20vw;
-    background-position: -10vw 50%;
-    left: 10vw;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-    animation: dd2 10s 2;
-    animation-delay: 4s;
-    border-radius: 2.6rem;
+        position: absolute;
+        background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
+        background-size: 2700px 1500px;
+        height: 40vh;
+        width: 20vw;
+        background-position: -10vw 50%;
+        left: 10vw;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        animation: dd2 10s 2;
+        animation-delay: 4s;
+        border-radius: 2.6rem;
     }
     .d3 {
-    position: absolute;
-    background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
-    background-size: 2700px 1500px;
-    overflow: hidden;
-    height: 86vh;
-    width: 40vw;
-    left: 25vw;
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8);
-    background-position: -35vw 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 3;
-    animation: dd3 10s 2;
-    animation-delay: 4s;
-    border-radius: 2.6rem;
+        position: absolute;
+        background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
+        background-size: 2700px 1500px;
+        overflow: hidden;
+        height: 86vh;
+        width: 40vw;
+        left: 25vw;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.8);
+        background-position: -35vw 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 3;
+        animation: dd3 10s 2;
+        animation-delay: 4s;
+        border-radius: 2.6rem;
     }
     .d4 {
-    position: absolute;
-    overflow: hidden;
-    background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
-    background-size: 2700px 1500px;
-    height: 60vh;
-    width: 20vw;
-    left: 60vw;
-    background-position: -70vw 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-    animation: dd4 10s 2;
-    animation-delay: 4s;
-    border-radius: 2.6rem;
+        position: absolute;
+        overflow: hidden;
+        background-image: url(https://i.imgur.com/xFEgZ9r.jpg);
+        background-size: 2700px 1500px;
+        height: 60vh;
+        width: 20vw;
+        left: 60vw;
+        background-position: -70vw 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        animation: dd4 10s 2;
+        animation-delay: 4s;
+        border-radius: 2.6rem;
     }
     @keyframes dd1 {
-    50% {
-        width: 90vw;
-    }
+        50% {
+            width: 90vw;
+        }
     }
     @keyframes dd12 {
-    50% {
-        background-position: Calc(-40vw) 50%;
-    }
+        50% {
+            background-position: Calc(-40vw) 50%;
+        }
     }
     @keyframes dd2 {
-    50% {
-        background-position: Calc(-50vw) 50%;
-    }
+        50% {
+            background-position: Calc(-50vw) 50%;
+        }
     }
     @keyframes dd3 {
-    50% {
-        background-position: Calc(-75vw) 50%;
-    }
+        50% {
+            background-position: Calc(-75vw) 50%;
+        }
     }
     @keyframes dd4 {
-    50% {
-        background-position: Calc(-110vw) 50%;
-    }
+        50% {
+            background-position: Calc(-110vw) 50%;
+        }
     }
     
 </style>
