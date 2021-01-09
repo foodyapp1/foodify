@@ -6,10 +6,11 @@ const router = Router();
 //////////////////////////////////////////////////////////////
 router.post("/login", async (req, res) => {
   const user = req.body;
+  console.log(user);
   try {
     users.findOne({ useremail: user.useremail }, (err, doc) => {
       if (!doc) {
-        res.status(404).json(" user not found !");
+        res.json("user_not_found");
       } else {
         bcrypt.compare(user.password, doc.password, function (err, result) {
           console.log(result);
