@@ -1,4 +1,5 @@
 const authroutes = require("./routes/api/loginsignup");
+const upload = require("./routes/api/upload");
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -13,6 +14,7 @@ app.use(express.json());
 
 //////////////////////////////////////////////////////////
 app.use("/api/loginsignup", authroutes);
+app.use("/api/upload", upload);
 //////////////////////////////////////////////////////////
 mongoose
   .connect(mongoUri, {
