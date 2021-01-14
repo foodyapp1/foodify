@@ -132,9 +132,9 @@ const Cookies = require("js-cookie");
             reportedPosts: []
         }),
         async mounted(){
-            const alluser = await axios.get('http://localhost:3000/api/loginsignup/');
+            const alluser = await axios.get('/api/loginsignup/');
             this.allusers = alluser.data.length;
-            const allpostsDum = await axios.get("http://localhost:3000/api/dummieposts");
+            const allpostsDum = await axios.get("/api/dummieposts");
             this.allposts = allpostsDum.data.length;
         },
         methods: {

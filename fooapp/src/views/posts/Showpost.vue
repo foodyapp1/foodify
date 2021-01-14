@@ -32,26 +32,62 @@
 
 
         <vs-row v-if="thePost" vs-justify="center" class="main-shower-post">
-          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="7" vs-sm="12">
-          <vs-card actionable class="cardx">
-          <div slot="header">
-          <h4>
-          {{thePost.title}}
-          </h4>
-          </div>
-          <div slot="media">
-          <img :src= thePost.image>
-          </div>
-          <div>
-          <span>{{thePost.text}}</span>
-          </div>
-          <div slot="footer">
-          <vs-row vs-justify="flex-end">
-          <vs-button class="mr-2" color="primary" type="gradient" >View</vs-button>
-          <vs-button color="danger" type="gradient">Delete</vs-button>
-          </vs-row>
-          </div>
-          </vs-card>
+
+          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6" vs-sm="12">
+            <vs-card class="cardx" fixedHeight>
+            <div slot="header">
+            <h4>
+            {{thePost.title}}
+            </h4>
+            </div>
+            <div slot="media">
+            <img :src= thePost.image class="img-resise">
+            </div>
+            <div>
+            <span>{{thePost.text}}</span>
+            </div>
+            <div>
+            <vs-row vs-justify="flex-end">
+            <vs-button class="mr-2" color="primary" type="gradient" >View</vs-button>
+            <vs-button color="danger" type="gradient">Delete</vs-button>
+            </vs-row>
+            </div>
+
+
+            <div class="commentary-main-field">
+
+            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
+                <vs-card>
+                <div slot="header">
+                <h4>
+                Commentaries
+                </h4>
+                </div>
+                <div >
+                <vs-textarea v-model="textarea" />
+                <div slot="footer">
+                <vs-row vs-justify="flex-end">
+                <vs-button color="success" type="gradient">commnent</vs-button>
+                </vs-row>
+                </div>
+                </div>
+                    <div class="commentary-main-field">
+                        <vs-row vs-justify="center">
+                            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12"  v-for="(comment, index) in allcomments" :key="index">
+                            <vs-card class="commentary-spacing-style">
+                            <h5>username {{index}} </h5>
+                            <br>
+                            <div>
+                            <span> {{comment}} </span>
+                            </div>
+                            </vs-card>
+                            </vs-col>
+                        </vs-row>
+                    </div>
+                </vs-card>
+                </vs-col>
+            </div>
+            </vs-card>
           </vs-col>
         </vs-row> 
     </div>
@@ -68,12 +104,19 @@ const Cookies = require("js-cookie");
             popupActivo: false,
             type: "type",
             activeItem: "activeItem",
-            thePost : null
+            thePost : null,
+            textarea: '',
+            allcomments :[
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit."]
         }),
         async mounted(){
             const id = this.$route.params.idpost;
             // console.log(id)
-            const onepost = await axios.get(`http://localhost:3000/api/dummieposts/${id}`);
+            const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
             // console.log(onepost.data);
         },
@@ -111,5 +154,14 @@ span {
 }
 .main-shower-post{
     margin: 2.6rem auto;
+}
+.img-resise{
+    height: 75vh;
+}
+.commentary-main-field{
+    margin-top: 1.6rem;
+}
+.commentary-spacing-style{
+    margin: 0.2rem auto;
 }
 </style>
