@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 });
 //////////////////////////////////////////////////////
 router.post("/signup", async (req, res) => {
-  const user = new users(req.body);
+  const user = new users(req.body);e
   try {
     const users = await user.save();
     if (!users) throw new Error("Something went wrong saving the users");
@@ -39,13 +39,14 @@ router.post("/signup", async (req, res) => {
 });
 
 //--------------get all users for admin dash--------------------
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const allusers = await users.find();
-    if(!allusers) throw new Error('Major Error in the porsecc of all user extration')
+    if (!allusers)
+      throw new Error("Major Error in the porsecc of all user extration");
     res.status(200).json(allusers);
   } catch {
     res.status(500).json({ message: error.message });
   }
-})
+});
 module.exports = router;
