@@ -52,41 +52,13 @@
             <vs-button color="danger" type="gradient">Delete</vs-button>
             </vs-row>
             </div>
+            
 
 
-            <div class="commentary-main-field">
-
-            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
-                <vs-card>
-                <div slot="header">
-                <h4>
-                Commentaries
-                </h4>
-                </div>
-                <div >
-                <vs-textarea v-model="textarea" />
-                <div slot="footer">
-                <vs-row vs-justify="flex-end">
-                <vs-button color="success" type="gradient">commnent</vs-button>
-                </vs-row>
-                </div>
-                </div>
-                    <div class="commentary-main-field">
-                        <vs-row vs-justify="center">
-                            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12"  v-for="(comment, index) in allcomments" :key="index">
-                            <vs-card class="commentary-spacing-style">
-                            <h5>username {{index}} </h5>
-                            <br>
-                            <div>
-                            <span> {{comment}} </span>
-                            </div>
-                            </vs-card>
-                            </vs-col>
-                        </vs-row>
-                    </div>
-                </vs-card>
-                </vs-col>
-            </div>
+            <div class="commentary-main-field" >
+   
+             <Commentary :postId="this.postId"  />
+             </div>
             </vs-card>
           </vs-col>
         </vs-row> 
@@ -95,9 +67,14 @@
 
 <script>
 import axios from "axios"
+import Commentary from "../interactions/commentary"
+ 
 const Cookies = require("js-cookie");
     export default {
         name : "Showpost",
+        components:{
+         Commentary   
+        },
          data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
@@ -105,16 +82,11 @@ const Cookies = require("js-cookie");
             type: "type",
             activeItem: "activeItem",
             thePost : null,
-            textarea: '',
-            allcomments :[
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit.",
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, eum quaerat. Suscipit."]
+            postId : null,
         }),
         async mounted(){
             const id = this.$route.params.idpost;
+            this.postId=id;
             // console.log(id)
             const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
@@ -158,10 +130,11 @@ span {
 .img-resise{
     height: 75vh;
 }
+.commentary-under-me{
+margin-bottom: 1.6rem;
+}
 .commentary-main-field{
     margin-top: 1.6rem;
 }
-.commentary-spacing-style{
-    margin: 0.2rem auto;
-}
+
 </style>
