@@ -10,6 +10,7 @@
   "dependencies": {
     "@fortawesome/vue-fontawesome": "^0.1.10",
     "auth0-js": "^9.11.3",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
