@@ -37,4 +37,15 @@ router.post("/signup", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+//--------------get all users for admin dash--------------------
+router.get('/', async (req, res) => {
+  try {
+    const allusers = await users.find();
+    if(!allusers) throw new Error('Major Error in the porsecc of all user extration')
+    res.status(200).json(allusers);
+  } catch {
+    res.status(500).json({ message: error.message });
+  }
+})
 module.exports = router;

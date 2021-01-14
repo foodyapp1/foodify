@@ -4,8 +4,7 @@
       <vs-navbar
         :type="type"
         v-model="activeItem"
-        class="nabarx spacing-added-to-nav"
-      >
+        class="nabarx spacing-added-to-nav">
         <div slot="title">
           <vs-navbar-title>
             Logo under construction
@@ -16,97 +15,60 @@
           {{ name }}
         </vs-navbar-item>
         <vs-navbar-item class="spacing-navbar-element">
+          {{ userStatus }}
+        </vs-navbar-item>
+        <vs-navbar-item v-if="userStatus ==='admin'"  class="spacing-navbar-element">
+          <span @click="adminDashboard">Admin dashboard</span>
+        </vs-navbar-item>
+        <vs-navbar-item class="spacing-navbar-element">
           <span @click="logout">Logout</span>
         </vs-navbar-item>
       </vs-navbar>
     </div>
-    <div id="columns">
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-        />
-        <figcaption>some grilled meat and salad</figcaption>
-      </figure>
 
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=653&q=80"
-        />
-        <figcaption>a dish for egg lovers</figcaption>
-      </figure>
 
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
-        />
-        <figcaption>a good healthy breakfast</figcaption>
-      </figure>
-
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-        />
-        <figcaption>todays best meal</figcaption>
-      </figure>
-
-      <figure>
-        <div class="img-hover-zoom">
-          <img
-            src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fGZvb2R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-          />
-        </div>
-
-        <figcaption>spice up your day</figcaption>
-      </figure>
-
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fGZvb2R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-        />
-        <figcaption>pasta lovers will enjoy this</figcaption>
-      </figure>
-
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1529042410759-befb1204b468?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fGZvb2R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-        />
-        <figcaption>some meat balls</figcaption>
-      </figure>
-
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1484980972926-edee96e0960d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTd8fGZvb2R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-        />
-        <figcaption>for vegeterians</figcaption>
-      </figure>
-
-      <figure>
-        <img
-          src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTh8fGZvb2R8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-        />
-        <figcaption>just a food pic</figcaption>
-      </figure>
+    <div v-if="allposts" id="columns">
+      <div class="under-columns" v-for="post in allposts" :key="post._id">
+        <figure @click="goToPost(post._id)">
+            <img :src= post.image />
+            <figcaption> {{post.title}} </figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
+
+import axios from 'axios';
 const Cookies = require("js-cookie");
 export default {
   name: "Mainfeed",
   data: () => ({
     name: Cookies.get("name"),
+    userStatus: Cookies.get("status"),
     popupActivo: false,
     type: "type",
     activeItem: "activeItem",
+    allposts: null
   }),
-
+  async mounted(){
+    const allpostsDum = await axios.get("http://localhost:3000/api/dummieposts");
+    this.allposts = allpostsDum.data;
+  },
   methods: {
     logout() {
       Cookies.remove("name");
-      document.location.reload(false);
+      Cookies.remove("_id");
+      Cookies.remove("status");
+      document.location.replace('/');
     },
+    adminDashboard(){
+      this.$router.push("/admindashboard");
+    },
+    goToPost(id){
+      this.$router.push(`/post/${id}`)
+    }
   },
 };
 </script>
@@ -179,12 +141,9 @@ div#columns small a {
   transition: 0.4s color;
 }
 
-/* div#columns:hover figure:not(:hover) {
-  opacity: 0.6;
-} */
-
 figure:hover {
   cursor: pointer;
+  transform: scale(1.04);
 }
 
 @media screen and (max-width: 750px) {
