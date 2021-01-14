@@ -1,6 +1,7 @@
 const authroutes = require("./routes/api/loginsignup");
 const upload = require("./routes/api/upload");
 const postsDumRoutes = require("./routes/api/dummieposts");
+const commentsRoutes= require("./routes/api/comments")
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -16,8 +17,10 @@ app.use(express.json());
 //////////////////////////////////////////////////////////
 app.use("/api/loginsignup", authroutes);
 app.use("/api/upload", upload);
-//////////////////////////////////////////////////////////
 app.use("/api/dummieposts", postsDumRoutes);
+app.use("/api/comments",commentsRoutes)
+//////////////////////////////////////////////////////////
+
 /////////////////////////////////////////////////////////
 mongoose
   .connect(mongoUri, {
