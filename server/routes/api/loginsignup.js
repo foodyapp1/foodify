@@ -28,12 +28,24 @@ router.post("/login", async (req, res) => {
 });
 //////////////////////////////////////////////////////
 router.post("/signup", async (req, res) => {
-  const user = new users(req.body);
+  const user = new users(req.body);e
   try {
     const users = await user.save();
     if (!users) throw new Error("Something went wrong saving the users");
     res.status(200).json(users);
   } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+//--------------get all users for admin dash--------------------
+router.get("/", async (req, res) => {
+  try {
+    const allusers = await users.find();
+    if (!allusers)
+      throw new Error("Major Error in the porsecc of all user extration");
+    res.status(200).json(allusers);
+  } catch {
     res.status(500).json({ message: error.message });
   }
 });
