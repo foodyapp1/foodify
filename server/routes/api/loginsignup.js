@@ -28,7 +28,7 @@ router.post("/login", async (req, res) => {
 });
 //////////////////////////////////////////////////////
 router.post("/signup", async (req, res) => {
-  const user = new users(req.body);
+  const user = new users(req.body);e
   try {
     const users = await user.save();
     if (!users) throw new Error("Something went wrong saving the users");
