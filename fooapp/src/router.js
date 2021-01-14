@@ -22,6 +22,30 @@ export default new Router({
             name: 'Mainfeed',
             index: 3,
             component: () => import('./views/mains/Mainfeed.vue')
+        },
+        {
+            path: '/expuploaderimg',
+            name: 'Uploaderimg',
+            index: 4,
+            component: () => import('./views/experimental/Uploaderimg.vue'),
+        },
+        {
+            path: '/admindashboard',
+            name: 'Dashboard',
+            index: 5,
+            component: () => import('./views/admin/Dashboard.vue'),
+        },
+        {
+            path: '/expcrudpost',
+            name: 'Expcrudpost',
+            index: 6,
+            component: () => import('./views/experimental/Expcrudpost.vue'),
+        },
+        {
+            path: '/post/:idpost',
+            name: 'Showpost',
+            index: 7,
+            component: () => import('./views/posts/Showpost.vue'),
         }
     ],
     mode: 'history'
