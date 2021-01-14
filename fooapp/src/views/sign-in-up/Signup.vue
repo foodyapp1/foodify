@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-<template>
-    
-</template>
-
-<script>
-    export default {
-       
-    }
-</script>
-=======
 <template lang="html">
   <div id="pop-btn">
     <vs-button
@@ -70,7 +59,6 @@ let bcrypt = require("bcryptjs");
 const axios = require("axios");
 export default {
   /* eslint-disable */
->>>>>>> d0c37309d4bfcd0b776ac14b7f378c077475de19
 
   name: "Signup",
   data() {
@@ -136,10 +124,6 @@ export default {
 };
 </script>
 <style scoped>
-<<<<<<< HEAD
-
-</style>
-=======
 .holamundo {
   text-align: center;
 }
@@ -156,4 +140,3 @@ export default {
   margin: 1.2rem 0 1rem 0;
 }
 </style>
->>>>>>> d0c37309d4bfcd0b776ac14b7f378c077475de19

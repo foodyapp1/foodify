@@ -1,7 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div>
-=======
   <div>
     <div class="centerx">
       <vs-button
@@ -39,22 +36,11 @@
         <span @click="signup"><Signup /></span>
         <br />
       </vs-popup>
->>>>>>> d0c37309d4bfcd0b776ac14b7f378c077475de19
     </div>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-    export default {
-    
-    }
-</script>
-
-<style scoped>
-   
-</style>
-=======
 /* eslint-disable */
 import Signup from "./Signup";
 export default {
@@ -98,4 +84,3 @@ export default {
   margin: 1.2rem 0 1rem 0;
 }
 </style>
->>>>>>> d0c37309d4bfcd0b776ac14b7f378c077475de19

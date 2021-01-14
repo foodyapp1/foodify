@@ -22,6 +22,7 @@ const userSchema = new Schema({
     type: String,
     default: "user",
   },
+  
 });
 
 const users = model("users", userSchema);
