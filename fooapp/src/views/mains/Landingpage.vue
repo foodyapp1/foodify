@@ -69,7 +69,7 @@ export default {
     async login(useremail, password) {
       try {
         const resp = await axios.post(
-          "http://localhost:3000/api/loginsignup/login",
+          "/api/loginsignup/login",
           { useremail, password }
         );
         if (resp.data === "user_not_found") {
