@@ -1,23 +1,21 @@
 const authroutes = require("./routes/api/loginsignup");
+const postsDumRoutes = require("./routes/api/dummieposts")
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const morgan = require("morgan");
-
 const { PORT, mongoUri } = require("./config");
+
+const app = express();
 
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.json());
-//////////////////////////////////////////////////////////
-// var bcrypt = require("bcryptjs");
-// var salt = bcrypt.genSaltSync(10);
-// var hash = bcrypt.hashSync("admin", salt);
-// console.log(hash);
+
 //////////////////////////////////////////////////////////
 app.use("/api/loginsignup", authroutes);
-//////////////////////////////////////////////////////////
+app.use("/api/dummieposts", postsDumRoutes);
+/////////////////////////////////////////////////////////
 mongoose
   .connect(mongoUri, {
     useNewUrlParser: true,
