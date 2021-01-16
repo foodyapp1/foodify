@@ -33,7 +33,7 @@
 
         <vs-row v-if="thePost" vs-justify="center" class="main-shower-post">
 
-          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6" vs-sm="12">
+          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="5" vs-sm="12">
             <vs-card class="cardx" fixedHeight>
             <div slot="header">
             <h4>
@@ -48,8 +48,8 @@
             </div>
             <div>
             <vs-row vs-justify="flex-end">
-            <vs-button class="mr-2" color="primary" type="gradient" >View</vs-button>
-            <vs-button color="danger" type="gradient">Delete</vs-button>
+            <Likes :postId="this.postId"/>
+            <Report :postId="this.postId"/>
             </vs-row>
             </div>
             
@@ -68,12 +68,16 @@
 <script>
 import axios from "axios"
 import Commentary from "../interactions/commentary"
+import Likes from '../interactions/Likes'
+import Report from "../interactions/Report"
  
 const Cookies = require("js-cookie");
     export default {
         name : "Showpost",
         components:{
-         Commentary   
+         Commentary,
+         Likes,
+         Report
         },
          data: () => ({
             name: Cookies.get("name"),
@@ -97,7 +101,7 @@ const Cookies = require("js-cookie");
                 Cookies.remove("name");
                 Cookies.remove("_id");
                 Cookies.remove("status");
-                document.location.reload(false);
+                document.location.replace('/');
             },
             adminDashboard(){
                 this.$router.push("/admindashboard");
@@ -136,5 +140,8 @@ margin-bottom: 1.6rem;
 .commentary-main-field{
     margin-top: 1.6rem;
 }
-
+/* this is for the like button */
+.likes-bttn-stiling-main{
+    margin : 0.5rem 0.6rem;
+}
 </style>
