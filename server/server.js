@@ -1,7 +1,8 @@
 const authroutes = require("./routes/api/loginsignup");
 const upload = require("./routes/api/upload");
 const postsDumRoutes = require("./routes/api/dummieposts");
-const commentsRoutes= require("./routes/api/comments")
+const commentsRoutes= require("./routes/api/comments");
+const reportsRoutes = require("./routes/api/report");
 const likesRoutes = require("./routes/api/likes")
 const express = require("express");
 const mongoose = require("mongoose");
@@ -20,6 +21,7 @@ app.use("/api/loginsignup", authroutes);
 app.use("/api/upload", upload);
 app.use("/api/dummieposts", postsDumRoutes);
 app.use("/api/comments", commentsRoutes);
+app.use("/api/report",reportsRoutes);
 app.use("/api/likes", likesRoutes)
 //////////////////////////////////////////////////////////
 mongoose
