@@ -1,6 +1,10 @@
 <template lang="html">
   <div id="pop-btn">
-    <vs-button @click="popupActivo = true" color="danger" type="border"
+    <vs-button
+      @click="popupActivo = true"
+      color="primary"
+      type="filled"
+      class="button-nav-spacing"
       >Sign Up</vs-button
     >
     <vs-popup
@@ -8,7 +12,6 @@
       title="Create Your Account !"
       :active.sync="popupActivo"
     >
-      <p>Sign Up</p>
       <vs-input
         label="Username"
         class="inputx"
@@ -24,33 +27,40 @@
       <vs-input
         type="password"
         label="Password"
-        class="inputx ml-3"
+        class="inputx"
         placeholder="Password"
         v-model="password"
       />
-      <div class="centerx">
-        <vs-button
-          @click="
+      <span
+        @click="
+          checkemptyinput(),
+            signup(fname, email, password),
             $vs.notify({
               title: 'Support',
-              text: 'thank you for subscribing with us',
-              color: 'danger',
+              text: 'thank you for joining our community',
+              color: 'primary',
             })
-          "
-          color="danger"
-          type="danger"
+        "
+      >
+        <vs-button
+          @click="openLoadingColor"
+          type="filled"
+          color="primary"
+          class="button-inside-sign-spacing"
+          >Register</vs-button
         >
-          <vs-button @click="openLoadingColor" type="gradient" color="danger"
-            >Danger</vs-button
-          >
-        </vs-button>
-      </div>
+      </span>
     </vs-popup>
   </div>
 </template>
 
 <script>
+let bcrypt = require("bcryptjs");
+const axios = require("axios");
 export default {
+  /* eslint-disable */
+
+  name: "Signup",
   data() {
     return {
       colorLoading: "#7d0c3f",
@@ -61,6 +71,34 @@ export default {
     };
   },
   methods: {
+    async signup(username, useremail, password) {
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(password, salt);
+      try {
+        const resp = await axios.post(
+          "http://localhost:3000/api/loginsignup/signup",
+          { username, useremail, password: hash }
+        );
+        this.popupActivo = false;
+        console.log("saved");
+      } catch (err) {
+        // Handle Error Here
+        console.error(err);
+      }
+      
+    },
+    //////////////////////////////////////////////////
+    checkemptyinput() {
+      if (
+        this.fname.length < 1 ||
+        this.email.length < 1 ||
+        this.email.length < 1
+      ) {
+        alert("fill the form pls");
+        return;
+      }
+    },
+    //////////////////////////////////////////////////
     openLoadingColor() {
       this.$vs.loading({ color: this.colorLoading });
       setTimeout(() => {
@@ -85,3 +123,20 @@ export default {
   },
 };
 </script>
+<style scoped>
+.holamundo {
+  text-align: center;
+}
+.inputx {
+  margin: 1rem auto;
+}
+.button-nav-spacing {
+  width: 7.6rem;
+  border-radius: 25px;
+}
+.button-inside-sign-spacing {
+  width: 7.6rem;
+  border-radius: 25px;
+  margin: 1.2rem 0 1rem 0;
+}
+</style>
