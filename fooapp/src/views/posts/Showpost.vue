@@ -35,10 +35,11 @@
 
           <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="5" vs-sm="12">
             <vs-card class="cardx" fixedHeight>
-            <div slot="header">
+            <div slot="header" class="header-post-unique">
             <h4>
             {{thePost.title}}
             </h4>
+            <h4> {{username}} </h4>
             </div>
             <div slot="media">
             <img :src= thePost.image class="img-resise">
@@ -62,6 +63,16 @@
             </vs-card>
           </vs-col>
         </vs-row> 
+           {{/*just footer*/}}
+              <vs-breadcrumb align="center">
+          <li><a href="#" title="Home">Home</a><span class="vs-breadcrum--separator">/</span></li>
+          <li><a href="#" title="Profil">Profil</a><span class="vs-breadcrum--separator">/</span></li>
+          <li aria-current="page" class="active">Infos</li>
+          </vs-breadcrumb>
+          <vs-breadcrumb align="center">
+          <h6> copyRight by DataDriven 2020/2021</h6>
+          </vs-breadcrumb>
+          
     </div>
 </template>
 
@@ -82,6 +93,7 @@ const Cookies = require("js-cookie");
          data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
+            username: Cookies.get("name"),
             popupActivo: false,
             type: "type",
             activeItem: "activeItem",
@@ -140,8 +152,8 @@ margin-bottom: 1.6rem;
 .commentary-main-field{
     margin-top: 1.6rem;
 }
-/* this is for the like button */
-.likes-bttn-stiling-main{
-    margin : 0.5rem 0.6rem;
+.header-post-unique{
+    display: flex;
+    justify-content: space-between;
 }
 </style>

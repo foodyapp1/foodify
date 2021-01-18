@@ -1,23 +1,54 @@
 <template>
-     <div class="centerx">
-        <vs-button @click="popupActivo=true" color="warning" type="gradient" class="likes-bttn-stiling-main">report</vs-button>
-            <vs-popup class="holamundo" title="Report a post, site your reasons" :active.sync="popupActivo">
-                <div class="mb-3">
-                    <vs-checkbox class="justify-content-start" v-model="contentInprop">Inappropriate  Content</vs-checkbox>
-                </div>
-                <div class="mb-3">
-                    <vs-checkbox class="justify-content-start" v-model="hate">Hate</vs-checkbox>
-                </div>
-                <div class="mb-3">
-                    <vs-checkbox class="justify-content-start" v-model="contentIllit">Illicit Content</vs-checkbox>
-                </div>
-                <vs-button color="warning" type="gradient" @click="reportsubmit" class="report-bttn-submit-main">report !</vs-button>
+   <div class="centerx">
+              <vs-button v-if="!reported" class="report-bttn-submit-main" @click="popupActivo2 = true" color="warning" type="gradient">Repport</vs-button>
+              <vs-button v-if="reported" class="report-bttn-submit-main" @click="popupActivo4 = true" color="warning" type="border">Repported</vs-button>
+
+    <vs-popup
+      classContent="popup-example"
+      title="repport note"
+      :active.sync="popupActivo2">
+      <vs-list>
+        <vs-list-header
+          title="please select one or all of them" color="primary">
+        </vs-list-header>
+        <vs-list-item title="abuse" subtitle="being abused verbally">
+          <vs-checkbox color="primary" v-model="abuse"/>
+        </vs-list-item>
+        <vs-list-item title="hate" subtitle="any act of hate ">
+          <vs-checkbox color="primary" v-model="hate" />
+        </vs-list-item>
+        <vs-list-item
+          title="inappropriate content"
+          subtitle="sexual content or violance ">
+          <vs-checkbox color="primary" v-model="inappropriate"/>
+        </vs-list-item>
+      </vs-list>
+      <vs-button class="repprot-batn-pop" @click="sendReport" color="primary" type="filled">send it</vs-button>
+      <vs-popup title="done" :active.sync="popupActivo3">
+        <p>report saved !</p>
+      </vs-popup>
+    </vs-popup>
+
+    <vs-popup class="holamundo" title="Delete The report" :active.sync="popupActivo4">
+            <p>
+            You've already reported this post for :
+            </p>
+            <ul>
+              <li v-if="abuse">Abuse</li>
+              <li v-if="hate">Hate</li>
+              <li v-if="inappropriate">Inappropriate content</li>
+            </ul>
+            <vs-button class="repprot-batn-pop" @click="deleteReport" color="danger" type="filled">Delete The report</vs-button>
+            <vs-popup title="Report deleted" :active.sync="popupActivo5">
+              <p>Report deletion Done !</p>
             </vs-popup>
-        </div>
+    </vs-popup>
+    </div>        
 </template>
 
 <script>
-import axios from 'axios'
+// eslint-disable-next-line
+import axios from 'axios';
 const Cookies = require("js-cookie");
     export default {
         name: "Report",
@@ -25,33 +56,75 @@ const Cookies = require("js-cookie");
             postId: String,
         },
         data: ()=> ({
+            abuse:false,
+            hate:false,
+            inappropriate: false,
+            popupActivo2: false,
+            popupActivo3: false,
+            popupActivo4: false,
+            popupActivo5: false,
+            textarea: '',
             userId: Cookies.get("_id"),
-            popupActivo:false,
-            contentInprop: false,
-            hate: false,
-            contentIllit: false
+            reported: false,
+            myreportId : null,
         }),
+        async mounted(){
+            //make an axis call for the reports related to this post and run a compareson
+                //if user Id exixt than swhitch reported to true and run conditiona redering,
+            const allreportonpost = await axios.get(`/api/report/${this.postId}`);
+            // console.log(allreportonpost.data);
+            allreportonpost.data.forEach(element => {
+              if(element.user_Id === this.userId){
+                this.reported = true;
+                this.myreportId = element._id;
+                this.abuse = element.abuse;
+                this.hate = element.hate;
+                this.inappropriate = element.inappropriate;
+              }
+            })
+            // console.log(this.reported, '//', this.myreportId);
+        },
         methods: {
-            reportsubmit(){
-                // console.log("Inapropriate : ", this.contentInprop);
-                // console.log("Hate : ", this.hate);
-                // console.log("content Illicit : ", this.contentIllit);
-                this.contentInprop = false;
-                this.hate = false;
-                this.contentIllit = false;
-                this.popupActivo = false;
-            }
+           async sendReport(){
+                this.popupActivo2= false;
+                this.popupActivo3= true;
+                 const report = await axios.post("/api/report/", {
+                    post_Id: this.postId,
+                    user_Id: this.userId,
+                    inappropriate: this.inappropriate,
+                    hate: this.hate,
+                    abuse: this.abuse
+                })
+                if(report){
+                    this.popupActivo3 = true;
+                    this.reported = true;
+                }
+          },
+          async deleteReport(){
+              const deleteReport = await axios.delete(`/api/report/${this.myreportId}`);
+              if(deleteReport){
+                this.popupActivo4 = false;
+                this.abuse= false;
+                this.hate= false;
+                this.inappropriate= false;
+                this.popupActivo5 = true;
+                this.reported = false;
+              }
+          }
         }
     }
 </script>
 
 <style scoped>
-.likes-bttn-stiling-main{
-    margin : 0.5rem 0.6rem;
+.repprot-batn-pop{
+    margin-top:1.6rem;
+    
 }
 .report-bttn-submit-main{
     width : 6rem;
-    margin-left : 29rem;
-    margin-top : 0.5rem;
+    margin : 0.5rem 0.6rem;
+}
+li{
+  list-style: none;
 }
 </style>
