@@ -90,8 +90,8 @@ export default {
     },
     ///////////////////////////////////////////////////////
     gotoAbout() {
-      // this.$router.push("/about");
-      window.location.replace('https://www.youtube.com/');
+      this.$router.push("/about");
+      
     },
   },
 };

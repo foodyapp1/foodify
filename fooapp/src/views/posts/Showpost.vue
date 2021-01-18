@@ -63,6 +63,16 @@
             </vs-card>
           </vs-col>
         </vs-row> 
+           {{/*just footer*/}}
+              <vs-breadcrumb align="center">
+          <li><a href="#" title="Home">Home</a><span class="vs-breadcrum--separator">/</span></li>
+          <li><a href="#" title="Profil">Profil</a><span class="vs-breadcrum--separator">/</span></li>
+          <li aria-current="page" class="active">Infos</li>
+          </vs-breadcrumb>
+          <vs-breadcrumb align="center">
+          <h6> copyRight by DataDriven 2020/2021</h6>
+          </vs-breadcrumb>
+          
     </div>
 </template>
 
