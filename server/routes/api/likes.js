@@ -31,7 +31,7 @@ router.post('/', async (req, res) =>{
     try {
         const addLike= await newLike.save();
         if(!addLike) throw new Error('liking process Err !');
-        res.status(200).send(true);
+        res.status(200).send(addLike);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -41,7 +41,7 @@ router.post('/', async (req, res) =>{
 router.delete('/:id', async (req, res) =>{
     const { id } = req.params;
     try {
-        const unliked = await Likes.deleteOne({user_Id: id});
+        const unliked = await Likes.findByIdAndDelete(id);
         if(!unliked) throw new Error('like deletion not done !');
         res.status(200).send(true);
     } catch (error) {

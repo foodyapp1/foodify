@@ -16,6 +16,7 @@ const Cookies = require("js-cookie");
             counter : 0,
             liked : false,
             userId: Cookies.get("_id"),
+            likeId: null,
         }),
         async mounted() {
             const countLikes= await axios.get(`/api/likes/${this.postId}`);
@@ -24,6 +25,7 @@ const Cookies = require("js-cookie");
             countLikes.data.forEach(element => {
                 if(element.user_Id === this.userId){
                     this.liked = true;
+                    this.likeId = element._id;
                 }
             })
         },
@@ -31,10 +33,11 @@ const Cookies = require("js-cookie");
             async likeswitch() {
                 //if the the user alredy likes the post
                 if(this.liked){
-                    const unliked = await axios.delete(`/api/likes/${this.userId}`);
+                    const unliked = await axios.delete(`/api/likes/${this.likeId}`);
                     if(unliked.data){
                         this.counter--;
                         this.liked = false;
+                        this.likeId = null;
                     } else {
                         alert('please retry unliking process server error !');
                     }
@@ -47,6 +50,7 @@ const Cookies = require("js-cookie");
                     if(like.data){
                         this.counter++;
                         this.liked = true;
+                        this.likeId = like.data._id
                     } else {
                         alert('please retry liking process server error !');
                     }

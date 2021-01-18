@@ -26,7 +26,6 @@ abuse:{
     type:Boolean,
     required:true,
 }
-
 });
 
 const report = model("report", reportSchema);
