@@ -77,7 +77,7 @@ const Cookies = require("js-cookie");
             async createDpost(){
                 console.log(this.user_id)
                 //this function call axios to post to the data base the dummie post information
-                const dumpost = await axios.post("http://localhost:3000/api/dummieposts", {
+                const dumpost = await axios.post("/api/dummieposts", {
                     user_id: this.user_id,
                     title : this.postTitle,
                     image : this.postImge,

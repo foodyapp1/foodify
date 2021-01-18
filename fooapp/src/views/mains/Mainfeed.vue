@@ -53,7 +53,7 @@ export default {
     allposts: null
   }),
   async mounted(){
-    const allpostsDum = await axios.get("http://localhost:3000/api/dummieposts");
+    const allpostsDum = await axios.get("/api/dummieposts");
     this.allposts = allpostsDum.data;
   },
   methods: {

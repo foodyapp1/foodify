@@ -69,7 +69,7 @@
                 <vs-card>
                 <div slot="header">
                 <h4>
-                    Likes counter
+                    interactions
                 </h4>
                 </div>
                 <div>
@@ -87,7 +87,7 @@
                 </h4>
                 </div>
                 <div>
-                    <span>Under construction</span>
+                    <span>all commentarys : {{allcoommentaries}} </span>
                 </div>
                 </vs-card>
                 </vs-col>
@@ -132,10 +132,12 @@ const Cookies = require("js-cookie");
             reportedPosts: []
         }),
         async mounted(){
-            const alluser = await axios.get('http://localhost:3000/api/loginsignup/');
+            const alluser = await axios.get('/api/loginsignup/');
             this.allusers = alluser.data.length;
-            const allpostsDum = await axios.get("http://localhost:3000/api/dummieposts");
+            const allpostsDum = await axios.get("/api/dummieposts");
             this.allposts = allpostsDum.data.length;
+            const allcomms = await axios.get("/api/comments/");
+            this.allcoommentaries = allcomms.data.length;
         },
         methods: {
             logout() {
