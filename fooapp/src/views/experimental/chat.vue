@@ -18,8 +18,13 @@
               </div>
             </div>
           </div>
-          <div class="inbox_chat">
-            <div class="chat_list active_chat">
+
+          <div v-if="this.friends !== null" class="inbox_chat">
+            <div
+              v-for="friend in this.friends.data"
+              :key="friend._id"
+              class="chat_list "
+            >
               <div class="chat_people">
                 <div class="chat_img">
                   <img
@@ -28,118 +33,19 @@
                   />
                 </div>
                 <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
+                  <h5>
+                    {{ friend.username }} <span class="chat_date">Dec 25</span>
+                  </h5>
                   <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img">
-                  <img
-                    src="https://ptetutorials.com/images/user-profile.png"
-                    alt="sunil"
-                  />
-                </div>
-                <div class="chat_ib">
-                  <h5>dhaoui aziz <span class="chat_date">Dec 25</span></h5>
-                  <p>
-                    Test, which is a new approach to have all solutions
-                    astrology under one roof.
+                    asba
                   </p>
                 </div>
               </div>
             </div>
           </div>
+          <div v-else><spin /></div>
         </div>
+
         <div class="mesgs">
           <div class="msg_history">
             <div class="incoming_msg">
@@ -221,17 +127,35 @@
 
 <script>
 /* eslint-disable */
+
 import io from "socket.io-client";
+import spin from "../spinner/spinner";
+const Cookies = require("js-cookie");
+const axios = require("axios");
 export default {
-  data() {
-    return {
-      socket: {},
-    };
+  data: () => ({
+    socket: {},
+    friends: null,
+  }),
+  components: {
+    spin,
   },
   created() {
-    this.socket = io("http://localhost:3000");
+    this.socket = io("http://localhost:5000");
   },
-  mounted() {
+  async mounted() {
+    try {
+      const resp = await axios.post(
+        "http://localhost:5000/api/messaging/friends",
+        { userid: Cookies.get("_id") }
+      );
+      if (resp !== null) {
+        this.friends = resp;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
     this.socket.on("name", (data) => {
       console.log(data);
     });
