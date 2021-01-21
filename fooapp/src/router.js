@@ -53,6 +53,12 @@ export default new Router({
       index: 8,
       component: () => import("./views/experimental/chat.vue"),
     },
+    {
+      path: "/uploadtest",
+      name: "Uploaderimg",
+      index: 9,
+      component: () => import("./views/experimental/Uploaderimg.vue"),
+    },
   ],
   mode: "history",
 });
