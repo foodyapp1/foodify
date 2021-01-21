@@ -27,6 +27,20 @@ router.get('/:id', async(req, res) => {
         res.status(500).json({message: err.message})
     }
 })
+//---------- get my posts -----------
+router.get('/mypost/:id', async(req, res) => {
+    const { id } = req.params;
+    try{
+        const myposts = await Dumpost.find({user_id:id});
+        if(!myposts) throw new Error('post not found or process Err !');
+        const sorted =  myposts.sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime()
+        });
+        res.status(200).json(sorted);
+    } catch {
+        res.status(500).json({message: err.message})
+    }
+})
 //---------- create a dummie post -----------------
 router.post('/', async (req, res) =>{
     const newDumPost =  new Dumpost(req.body);

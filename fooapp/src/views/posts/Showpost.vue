@@ -49,7 +49,7 @@
             </div>
             <div>
             <vs-row vs-justify="flex-end">
-            <Likes :postId="this.postId"/>
+            <Likes :postId="this.postId" :postUserId="this.postUserId"/>
             <Report :postId="this.postId"/>
             </vs-row>
             </div>
@@ -90,7 +90,7 @@ const Cookies = require("js-cookie");
          Likes,
          Report
         },
-         data: () => ({
+      data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
             username: Cookies.get("name"),
@@ -99,6 +99,7 @@ const Cookies = require("js-cookie");
             activeItem: "activeItem",
             thePost : null,
             postId : null,
+            postUserId: null,
         }),
         async mounted(){
             const id = this.$route.params.idpost;
@@ -106,7 +107,8 @@ const Cookies = require("js-cookie");
             // console.log(id)
             const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
-            // console.log(onepost.data);
+            this.postUserId = onepost.data.user_id
+            // console.log(this.postUserId);
         },
         methods: {
             logout() {
