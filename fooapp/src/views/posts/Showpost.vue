@@ -33,12 +33,13 @@
 
         <vs-row v-if="thePost" vs-justify="center" class="main-shower-post">
 
-          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="6" vs-sm="12">
+          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="5" vs-sm="12">
             <vs-card class="cardx" fixedHeight>
-            <div slot="header">
+            <div slot="header" class="header-post-unique">
             <h4>
             {{thePost.title}}
             </h4>
+            <h4> {{username}} </h4>
             </div>
             <div slot="media">
             <img :src= thePost.image class="img-resise">
@@ -48,8 +49,8 @@
             </div>
             <div>
             <vs-row vs-justify="flex-end">
-            <vs-button class="mr-2" color="primary" type="gradient" >View</vs-button>
-            <vs-button color="danger" type="gradient">Delete</vs-button>
+            <Likes :postId="this.postId" :postUserId="this.postUserId"/>
+            <Report :postId="this.postId"/>
             </vs-row>
             </div>
             
@@ -62,27 +63,43 @@
             </vs-card>
           </vs-col>
         </vs-row> 
+           {{/*just footer*/}}
+              <vs-breadcrumb align="center">
+          <li><a href="#" title="Home">Home</a><span class="vs-breadcrum--separator">/</span></li>
+          <li><a href="#" title="Profil">Profil</a><span class="vs-breadcrum--separator">/</span></li>
+          <li aria-current="page" class="active">Infos</li>
+          </vs-breadcrumb>
+          <vs-breadcrumb align="center">
+          <h6> copyRight by DataDriven 2020/2021</h6>
+          </vs-breadcrumb>
+          
     </div>
 </template>
 
 <script>
 import axios from "axios"
 import Commentary from "../interactions/commentary"
+import Likes from '../interactions/Likes'
+import Report from "../interactions/Report"
  
 const Cookies = require("js-cookie");
     export default {
         name : "Showpost",
         components:{
-         Commentary   
+         Commentary,
+         Likes,
+         Report
         },
-         data: () => ({
+      data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
+            username: Cookies.get("name"),
             popupActivo: false,
             type: "type",
             activeItem: "activeItem",
             thePost : null,
             postId : null,
+            postUserId: null,
         }),
         async mounted(){
             const id = this.$route.params.idpost;
@@ -90,14 +107,15 @@ const Cookies = require("js-cookie");
             // console.log(id)
             const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
-            // console.log(onepost.data);
+            this.postUserId = onepost.data.user_id
+            // console.log(this.postUserId);
         },
         methods: {
             logout() {
                 Cookies.remove("name");
                 Cookies.remove("_id");
                 Cookies.remove("status");
-                document.location.reload(false);
+                document.location.replace('/');
             },
             adminDashboard(){
                 this.$router.push("/admindashboard");
@@ -136,5 +154,8 @@ margin-bottom: 1.6rem;
 .commentary-main-field{
     margin-top: 1.6rem;
 }
-
+.header-post-unique{
+    display: flex;
+    justify-content: space-between;
+}
 </style>

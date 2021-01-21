@@ -91,6 +91,7 @@ export default {
     ///////////////////////////////////////////////////////
     gotoAbout() {
       this.$router.push("/about");
+      
     },
   },
 };

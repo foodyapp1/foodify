@@ -12,7 +12,16 @@ try{
     res.status(500).json({ message: error.message });
   }
 })
-
+//------------- get all comments -----------------
+router.get('/', async (req, res) =>{
+  try{
+    const allcomments = await Comments.find();
+    if(!allcomments) throw new Error('getiing all comment process stuck Err!');
+    res.status(200).json(allcomments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+})
 //////////////// getting specefic commentary for a post depending on id 
 
 router.get('/:id',async (req,res)=>{

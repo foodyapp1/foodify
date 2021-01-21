@@ -64,23 +64,20 @@ export default {
   }),
  async mounted() {
   const findComment= await axios.get(`/api/comments/${this.postId}`);
-  console.log(findComment.data)
+  // console.log(findComment.data)
   this.allcomments=findComment.data;
   },
   methods: {
   async submitcomment() {
-      const text = this.textarea;
-      this.allcomments.push(text);
-      this.textarea = "";
-      const createdComment=await axios.post('/api/comments',{
+      const createdComment = await axios.post('/api/comments',{
         post_Id:this.postId,
         username: this.username,
         user_Id: this.userId,
-        text: text,
+        text: this.textarea,
       })
-      console.log(createdComment.data)
-      window.location.reload()
-      // this.$router.push(`/post/${this.postId}`)
+      //to optimise with socket IO ::
+      this.textarea = "";
+      this.allcomments.unshift(createdComment.data);
     },
   },
 };
