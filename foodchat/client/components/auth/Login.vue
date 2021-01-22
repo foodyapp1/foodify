@@ -2,7 +2,7 @@
     <div class="page login">
         <section class="section section__landing">
             <div class="section__heading">
-                <span style="color:#fa861a" class="section__title">Sign In</span>
+                <span style="color:#fa861a" class="section__title">LogIn</span>
             </div>
             <div class="section__content">
                 <Error :errorMessage="errorMessage" />
