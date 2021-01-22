@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import slugify from "slugify";
 let bcrypt = require("bcryptjs");
 const axios = require("axios");
 export default {
@@ -77,7 +78,11 @@ export default {
       try {
         const resp = await axios.post(
           "http://localhost:3000/api/loginsignup/signup",
-          { username, useremail, password: hash }
+          {
+            handle: slugify(username.toLowerCase()),
+            email: useremail,
+            password: hash,
+          }
         );
         this.popupActivo = false;
         console.log("saved");
@@ -85,7 +90,6 @@ export default {
         // Handle Error Here
         console.error(err);
       }
-      
     },
     //////////////////////////////////////////////////
     checkemptyinput() {
