@@ -78,7 +78,9 @@ export default {
       try {
         const resp = await axios.post(
           "http://localhost:3000/api/loginsignup/signup",
+
           {
+            username: username,
             handle: slugify(username.toLowerCase()),
             email: useremail,
             password: hash,

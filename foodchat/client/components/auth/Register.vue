@@ -2,7 +2,7 @@
     <div class="page login">
         <section class="section section__landing">
             <div class="section__heading">
-                <span class="section__title">Register Here</span>
+                <span style="color:#fa861a" class="section__title">Register here</span>
             </div>
             <div class="section__content">
                 <p class="section__lead">We hope you will enjoy our application!</p>
