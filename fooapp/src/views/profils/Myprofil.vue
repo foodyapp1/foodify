@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
       <vs-navbar
         :type="type"
         v-model="activeItem"
