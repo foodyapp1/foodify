@@ -39,7 +39,7 @@
             <h4>
             {{thePost.title}}
             </h4>
-            <h4> {{username}} </h4>
+            <h4> {{name}} </h4>
             </div>
             <div slot="media">
             <img :src= thePost.image class="img-resise">
@@ -49,7 +49,7 @@
             </div>
             <div>
             <vs-row vs-justify="flex-end">
-            <Likes :postId="this.postId"/>
+            <Likes :postId="this.postId" :postUserId="this.postUserId"/>
             <Report :postId="this.postId"/>
             </vs-row>
             </div>
@@ -93,12 +93,12 @@ const Cookies = require("js-cookie");
          data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
-            username: Cookies.get("name"),
             popupActivo: false,
             type: "type",
             activeItem: "activeItem",
             thePost : null,
             postId : null,
+            postUserId: null,
         }),
         async mounted(){
             const id = this.$route.params.idpost;
@@ -106,7 +106,8 @@ const Cookies = require("js-cookie");
             // console.log(id)
             const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
-            // console.log(onepost.data);
+            this.postUserId = onepost.data.user_id
+            // console.log(this.postUserId);
         },
         methods: {
             logout() {

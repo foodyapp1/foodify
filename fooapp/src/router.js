@@ -25,7 +25,7 @@ export default new Router({
     },
     {
       path: "/expuploaderimg",
-      name: "Uploaderimg",
+      name: "Uploaderimgrr",
       index: 4,
       component: () => import("./views/experimental/Uploaderimg.vue"),
     },
