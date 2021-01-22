@@ -59,6 +59,12 @@ export default new Router({
       index: 9,
       component: () => import("./views/experimental/Uploaderimg.vue"),
     },
+    {
+      path: "/myprofil",
+      name: "Myprofil",
+      index: 10,
+      component: () => import("./views/profils/Myprofil.vue"),
+    },
   ],
   mode: "history",
 });

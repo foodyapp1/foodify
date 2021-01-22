@@ -11,8 +11,8 @@
           </vs-navbar-title>
         </div>
 
-        <vs-navbar-item class="spacing-navbar-element">
-          {{ name }}
+        <vs-navbar-item class="spacing-navbar-element" >
+          <span @click="myprofil">{{ name }}</span>
         </vs-navbar-item>
         <vs-navbar-item class="spacing-navbar-element">
           {{ userStatus }}
@@ -68,6 +68,9 @@ export default {
     },
     goToPost(id){
       this.$router.push(`/post/${id}`)
+    },
+     myprofil(){
+    this.$router.push('/myprofil')
     }
   },
 };

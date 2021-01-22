@@ -90,7 +90,7 @@ const Cookies = require("js-cookie");
          Likes,
          Report
         },
-         data: () => ({
+      data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
             popupActivo: false,
