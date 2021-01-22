@@ -1,6 +1,12 @@
 const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema({
+  handle: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
   username: {
     type: String,
     required: true,
@@ -13,6 +19,8 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    trim: true,
+    sparse: true,
   },
   password: {
     type: String,
@@ -24,6 +32,15 @@ const userSchema = new Schema({
   },
   followers: {
     type: Array,
+  },
+
+  location: {
+    type: String,
+    default: null,
+  },
+  image: {
+    type: String,
+    default: null,
   },
 });
 
