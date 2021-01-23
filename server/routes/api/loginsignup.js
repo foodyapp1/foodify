@@ -13,7 +13,6 @@ router.post("/login", async (req, res) => {
         res.json("user_not_found");
       } else {
         bcrypt.compare(user.password, doc.password, function (err, result) {
-          console.log(result);
           if (result !== false) {
             res.status(200).json(doc);
           } else {
