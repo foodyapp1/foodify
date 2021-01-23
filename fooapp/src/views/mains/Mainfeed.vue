@@ -11,8 +11,8 @@
           </vs-navbar-title>
         </div>
 
-        <vs-navbar-item class="spacing-navbar-element">
-          {{ name }}
+        <vs-navbar-item class="spacing-navbar-element" >
+          <span @click="myprofil">{{ name }}</span>
         </vs-navbar-item>
         <vs-navbar-item class="spacing-navbar-element">
           {{ userStatus }}
@@ -35,15 +35,20 @@
         </figure>
       </div>
     </div>
+    <Clicktopost />
   </div>
 </template>
 
 <script>
 
 import axios from 'axios';
+import Clicktopost from '../posts/Clicktopost'
 const Cookies = require("js-cookie");
 export default {
   name: "Mainfeed",
+  components: {
+    Clicktopost
+  },
   data: () => ({
     name: Cookies.get("name"),
     userStatus: Cookies.get("status"),
@@ -61,13 +66,16 @@ export default {
       Cookies.remove("name");
       Cookies.remove("_id");
       Cookies.remove("status");
-      document.location.replace('/');
+      window.location.replace('/');
     },
     adminDashboard(){
       this.$router.push("/admindashboard");
     },
     goToPost(id){
       this.$router.push(`/post/${id}`)
+    },
+     myprofil(){
+    this.$router.push('/myprofil')
     }
   },
 };

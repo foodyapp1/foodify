@@ -39,7 +39,7 @@
             <h4>
             {{thePost.title}}
             </h4>
-            <h4> {{username}} </h4>
+            <h4> {{name}} </h4>
             </div>
             <div slot="media">
             <img :src= thePost.image class="img-resise">
@@ -49,8 +49,9 @@
             </div>
             <div>
             <vs-row vs-justify="flex-end">
-            <Likes :postId="this.postId"/>
+            <Likes :postId="this.postId" :postUserId="this.postUserId"/>
             <Report :postId="this.postId"/>
+            <vs-button v-if="userStatus === 'admin'" color="danger" type="line" class="showpost-dell-bttn" @click="deletePost">Delete post</vs-button>
             </vs-row>
             </div>
             
@@ -90,15 +91,15 @@ const Cookies = require("js-cookie");
          Likes,
          Report
         },
-         data: () => ({
+      data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
-            username: Cookies.get("name"),
             popupActivo: false,
             type: "type",
             activeItem: "activeItem",
             thePost : null,
             postId : null,
+            postUserId: null,
         }),
         async mounted(){
             const id = this.$route.params.idpost;
@@ -106,7 +107,8 @@ const Cookies = require("js-cookie");
             // console.log(id)
             const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
-            // console.log(onepost.data);
+            this.postUserId = onepost.data.user_id
+            // console.log(this.postUserId);
         },
         methods: {
             logout() {
@@ -120,6 +122,16 @@ const Cookies = require("js-cookie");
             },
             goMAinFeed(){
                 window.location.replace('/mainfeed');
+            },
+            async deletePost(){
+                const id = this.$route.params.idpost;
+                const deleted = await axios.delete(`/api/dummieposts/${id}`);
+                    if(deleted.data){
+                        alert(`post ${id} has been deleted !`)
+                        window.location.replace('/mainfeed');
+                    } else {
+                        alert('post deletion undonne server problem ! pease try again')
+                    }
             }
         },
     }
@@ -155,5 +167,8 @@ margin-bottom: 1.6rem;
 .header-post-unique{
     display: flex;
     justify-content: space-between;
+}
+.showpost-dell-bttn{
+    margin-left: 1.4rem;
 }
 </style>

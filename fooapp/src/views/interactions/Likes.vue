@@ -11,6 +11,7 @@ const Cookies = require("js-cookie");
         name : "Likes",
         props: {
             postId: String,
+            postUserId: String,
         },
         data: ()=> ({
             counter : 0,
@@ -46,6 +47,7 @@ const Cookies = require("js-cookie");
                     const like = await axios.post('/api/likes', {
                         post_Id: this.postId,
                         user_Id: this.userId,
+                        userowner_Id: this.postUserId,
                     });
                     if(like.data){
                         this.counter++;

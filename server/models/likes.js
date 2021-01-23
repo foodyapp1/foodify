@@ -9,6 +9,10 @@ user_Id:{
     type:String,
     required:true,
 },
+userowner_Id:{
+    type:String,
+    required:true,
+},
 date: {
     type: Date,
     default: Date.now,

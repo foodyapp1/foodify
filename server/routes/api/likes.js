@@ -25,6 +25,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+//------ geting specific likes for a user -------
+router.get('/mylike/:id', async (req, res) => {
+    const { id } = req.params;
+    try{
+        const alllikesforUser = await Likes.find({userowner_Id : id});
+        if(!alllikesforUser) throw new Error('getting likes for specific post process Err!');
+        res.status(200).json(alllikesforUser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 //-------- making a like for a post -----------
 router.post('/', async (req, res) =>{
     const newLike= new Likes(req.body);

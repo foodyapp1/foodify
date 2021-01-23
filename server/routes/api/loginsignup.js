@@ -13,7 +13,6 @@ router.post("/login", async (req, res) => {
         res.json("user_not_found");
       } else {
         bcrypt.compare(user.password, doc.password, function (err, result) {
-          console.log(result);
           if (result !== false) {
             res.status(200).json(doc);
           } else {
@@ -49,4 +48,18 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+//--------------delete user --------------------
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const deletedUser = await users.findByIdAndDelete(id);
+    if(!deletedUser) throw new Error("user deletion process Err !");
+    res.status(200).send(true);
+  } catch {
+    res.status(500).json({ message: error.message });
+  }
+})
+
+//--------------exporting router----------------
+
 module.exports = router;

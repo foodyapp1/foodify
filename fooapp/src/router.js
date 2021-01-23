@@ -25,7 +25,7 @@ export default new Router({
     },
     {
       path: "/expuploaderimg",
-      name: "Uploaderimg",
+      name: "Uploaderimgrr",
       index: 4,
       component: () => import("./views/experimental/Uploaderimg.vue"),
     },
@@ -47,17 +47,30 @@ export default new Router({
       index: 7,
       component: () => import("./views/posts/Showpost.vue"),
     },
-    {
-      path: "/chat",
-      name: "chat",
-      index: 8,
-      component: () => import("./views/experimental/chat.vue"),
-    },
+
     {
       path: "/uploadtest",
       name: "Uploaderimg",
       index: 9,
       component: () => import("./views/experimental/Uploaderimg.vue"),
+    },
+    {
+      path: "/myprofil",
+      name: "Myprofil",
+      index: 10,
+      component: () => import("./views/profils/Myprofil.vue"),
+    },
+    {
+      path: "/createpost",
+      name: "Createpost",
+      index: 11,
+      component: () => import("./views/posts/Createpost.vue"),
+    },
+    {
+      path: "/editpost/:idedit",
+      name: "Editpost",
+      index: 11,
+      component: () => import("./views/posts/Editpost.vue"),
     },
   ],
   mode: "history",
