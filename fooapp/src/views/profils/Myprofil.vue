@@ -77,16 +77,19 @@
           </vs-row>
           <Profilfeed />
      </div>
+     <Clicktopost />
    </div>   
 </template>
 <script>
 import axios from 'axios';
 import Profilfeed from './Profilfeed.vue';
+import Clicktopost from '../posts/Clicktopost'
 const Cookies = require("js-cookie");
 export default {
    name:'Myprofil',
    components:{
-       Profilfeed
+       Profilfeed,
+       Clicktopost
    },
      data: () => ({
     name: Cookies.get("name"),
@@ -117,7 +120,7 @@ async mounted(){
     goToPost(id){
       this.$router.push(`/post/${id}`)
     },
-     goMAinFeed(){
+    goMAinFeed(){
       window.location.replace('/mainfeed');
     },
     myprofil(){

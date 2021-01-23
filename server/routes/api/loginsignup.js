@@ -48,4 +48,18 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+//--------------delete user --------------------
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const deletedUser = await users.findByIdAndDelete(id);
+    if(!deletedUser) throw new Error("user deletion process Err !");
+    res.status(200).send(true);
+  } catch {
+    res.status(500).json({ message: error.message });
+  }
+})
+
+//--------------exporting router----------------
+
 module.exports = router;

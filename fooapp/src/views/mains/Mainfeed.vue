@@ -35,15 +35,20 @@
         </figure>
       </div>
     </div>
+    <Clicktopost />
   </div>
 </template>
 
 <script>
 
 import axios from 'axios';
+import Clicktopost from '../posts/Clicktopost'
 const Cookies = require("js-cookie");
 export default {
   name: "Mainfeed",
+  components: {
+    Clicktopost
+  },
   data: () => ({
     name: Cookies.get("name"),
     userStatus: Cookies.get("status"),
@@ -61,7 +66,7 @@ export default {
       Cookies.remove("name");
       Cookies.remove("_id");
       Cookies.remove("status");
-      document.location.replace('/');
+      window.location.replace('/');
     },
     adminDashboard(){
       this.$router.push("/admindashboard");

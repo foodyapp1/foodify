@@ -101,12 +101,27 @@
                 <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="10" vs-sm="12">
                 <vs-card>
                 <div slot="header">
-                <h4>
-                    Reported posts feed
-                </h4>
+                    <h4>
+                        display data
+                    </h4>
                 </div>
                 <div>
-                    
+                    <!-- strat -->
+                        <div class="">
+                            <vs-tabs>
+                            <vs-tab label="users">
+                            <div>
+                                <Usersstats />
+                            </div>
+                            </vs-tab>
+                            <vs-tab label="reported posts">
+                            <div>
+                                <Reportedp />
+                            </div>
+                            </vs-tab>
+                            </vs-tabs>
+                        </div>
+                    <!-- end -->
                 </div>
                 </vs-card>
                 </vs-col>
@@ -116,20 +131,28 @@
 
 <script>
 import axios from "axios"
+import Usersstats from "./Userstats"
+import Reportedp from "./Reportedp"
 const Cookies = require("js-cookie");
     export default {
         name: "Dashboard",
+        components: {
+            Usersstats,
+            Reportedp
+        },
         data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
             type: "type",
             activeItem: "activeItem",
-            allusers: null,
+            allusers:0,
             alllikes: 0,
             allreports: 0,
             allcoommentaries: 0,
             allposts: null,
-            reportedPosts: []
+            reportedPosts: [],
+            usersstats: true,
+            reportedPostsStats: false
         }),
         async mounted(){
             const alluser = await axios.get('/api/loginsignup/');
