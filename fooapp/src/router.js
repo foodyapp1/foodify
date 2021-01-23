@@ -65,6 +65,18 @@ export default new Router({
       index: 10,
       component: () => import("./views/profils/Myprofil.vue"),
     },
+    {
+      path: "/createpost",
+      name: "Createpost",
+      index: 11,
+      component: () => import("./views/posts/Createpost.vue"),
+    },
+    {
+      path: "/editpost/:idedit",
+      name: "Editpost",
+      index: 11,
+      component: () => import("./views/posts/Editpost.vue"),
+    },
   ],
   mode: "history",
 });

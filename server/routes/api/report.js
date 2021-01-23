@@ -2,6 +2,16 @@ const Report = require("../../models/report");
 const { Router } = require("express");
 const router = Router();
 
+//-------get specific reports ------------
+router.get('/', async (req, res) =>{
+    try{
+        const allRepoerts = await Report.find();
+        if(!allRepoerts) throw new Error('reports fetch process unique Err!');
+        res.status(200).json(allRepoerts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
 
 //-------get specific reports ------------
 router.get('/:id', async (req, res) =>{

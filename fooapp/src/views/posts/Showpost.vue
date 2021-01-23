@@ -51,6 +51,7 @@
             <vs-row vs-justify="flex-end">
             <Likes :postId="this.postId" :postUserId="this.postUserId"/>
             <Report :postId="this.postId"/>
+            <vs-button v-if="userStatus === 'admin'" color="danger" type="line" class="showpost-dell-bttn" @click="deletePost">Delete post</vs-button>
             </vs-row>
             </div>
             
@@ -121,6 +122,16 @@ const Cookies = require("js-cookie");
             },
             goMAinFeed(){
                 window.location.replace('/mainfeed');
+            },
+            async deletePost(){
+                const id = this.$route.params.idpost;
+                const deleted = await axios.delete(`/api/dummieposts/${id}`);
+                    if(deleted.data){
+                        alert(`post ${id} has been deleted !`)
+                        window.location.replace('/mainfeed');
+                    } else {
+                        alert('post deletion undonne server problem ! pease try again')
+                    }
             }
         },
     }
@@ -156,5 +167,8 @@ margin-bottom: 1.6rem;
 .header-post-unique{
     display: flex;
     justify-content: space-between;
+}
+.showpost-dell-bttn{
+    margin-left: 1.4rem;
 }
 </style>

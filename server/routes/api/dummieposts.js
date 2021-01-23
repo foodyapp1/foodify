@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const Dumpost = require("../../models/Dummiepost");
 
+
 const router = Router();
 //---------- get all dummie post ------------------
 router.get('/', async (req, res)=>{
@@ -52,7 +53,28 @@ router.post('/', async (req, res) =>{
         res.status(500).json({message: err.message})
     }
 })
-
+//---------- create a dummie post -----------------
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const updated = await Dumpost.findByIdAndUpdate(id , req.body)
+        if(!updated) throw new Error('update process Err !')
+        res.status(200).send(true);
+    } catch {
+        res.status(500).json({message: err.message})
+    }
+})
+//------------ Delete Post --------------------
+router.delete('/:id', async (req, res) => {
+    const { id } =req.params;
+    try {
+        const deletedPost = await Dumpost.findByIdAndDelete(id);
+        if(!deletedPost) throw new Error('deletion process Err !');
+        res.status(200).send(true);
+    } catch {
+        res.status(500).json({message: err.message})
+    }
+})
 
 //------------ export module --------------------
 module.exports = router;

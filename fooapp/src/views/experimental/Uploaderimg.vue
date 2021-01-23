@@ -3,6 +3,7 @@
         <h1>I'm the testing ground for upload img</h1>
         <form @submit.prevent="sendFile" enctype="multipart/form-data">
             <div>
+                
                 <label for="file"> Upload File</label>
                 <input 
                 type="file"
