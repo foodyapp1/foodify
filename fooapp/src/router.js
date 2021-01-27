@@ -72,6 +72,18 @@ export default new Router({
       index: 11,
       component: () => import("./views/posts/Editpost.vue"),
     },
+    {
+      path: "/yourprofile/:idtheprofile",
+      name: "Yourprofile",
+      index: 12,
+      component: () => import("./views/profils/Yourprofile.vue"),
+    },
+    {
+      path: "/followers",
+      name: "FollowerFeed",
+      index: 13,
+      component: () => import("./views/mains/FollowedFeed.vue"),
+    }
   ],
   mode: "history",
 });

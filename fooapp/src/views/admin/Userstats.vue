@@ -1,5 +1,5 @@
 <template>
-        <vs-table v-if="users.length">
+        <vs-table v-if="users && users.length">
             <vs-tr>
                 <vs-th>
                 Name
@@ -33,7 +33,7 @@
                 {{ tr._id }}
                 </vs-td>
                 <vs-td class="delete-the-user">
-                <span @click="deleteUser(tr._id, i)">delete</span>
+                <span class="material-icons" @click="deleteUser(tr._id, i)">delete</span>
                 </vs-td>
             </vs-tr>
         </vs-table>
@@ -44,7 +44,7 @@ import axios from "axios"
     export default {
         name : 'Usersstats',
         data: () => ({
-            users : [],
+            users : null,
         }),
         async mounted(){
             // eslint-disable-next-line

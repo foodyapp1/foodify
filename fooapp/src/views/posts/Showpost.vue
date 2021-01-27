@@ -13,10 +13,7 @@
                 </div>
 
                 <vs-navbar-item class="spacing-navbar-element">
-                {{ name }}
-                </vs-navbar-item>
-                <vs-navbar-item class="spacing-navbar-element">
-                {{ userStatus }}
+                <span @click="myprofil">{{ name }}</span>
                 </vs-navbar-item>
                 <vs-navbar-item class="spacing-navbar-element">
                    <span  @click="goMAinFeed">Main Fedd</span>
@@ -39,7 +36,7 @@
             <h4>
             {{thePost.title}}
             </h4>
-            <h4> {{name}} </h4>
+            <h4>By : <span @click="goTouserProfile(thePost.user_id)" >{{ thePost.username }}</span> </h4>
             </div>
             <div slot="media">
             <img :src= thePost.image class="img-resise">
@@ -91,7 +88,7 @@ const Cookies = require("js-cookie");
          Likes,
          Report
         },
-      data: () => ({
+        data: () => ({
             name: Cookies.get("name"),
             userStatus: Cookies.get("status"),
             popupActivo: false,
@@ -107,6 +104,8 @@ const Cookies = require("js-cookie");
             // console.log(id)
             const onepost = await axios.get(`/api/dummieposts/${id}`);
             this.thePost = onepost.data;
+            // eslint-disable-next-line
+            console.log(this.thePost);
             this.postUserId = onepost.data.user_id
             // console.log(this.postUserId);
         },
@@ -132,6 +131,12 @@ const Cookies = require("js-cookie");
                     } else {
                         alert('post deletion undonne server problem ! pease try again')
                     }
+            },
+            myprofil(){
+                this.$router.push('/myprofil')
+            },
+            goTouserProfile(id){
+                this.$router.push(`/yourprofile/${id}`);
             }
         },
     }

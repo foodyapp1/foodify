@@ -42,6 +42,26 @@ router.get('/mypost/:id', async(req, res) => {
         res.status(500).json({message: err.message})
     }
 })
+//---------- getin multiple my posts for followers -----------
+// router.post('/follow', async(req, res) => {
+//     const { array } = req.body
+//     let allFolowerpost=[];
+//     await array.forEach(async(id) => {
+//         let followpost = await Dumpost.find({user_id: id})
+//         allFolowerpost = allFolowerpost.concat(followpost);
+//         // console.log('final posts : ',allFolowerpost)
+//     }).then(data=>{
+//         console.log(data)
+//     })
+        // if(allFolowerpost){
+        //     const sorted = allFolowerpost.sort((a, b) => {
+        //         return new Date(b.date).getTime() - new Date(a.date).getTime()
+        //     });
+        //     console.log(sorted)
+        //     res.status(200).json(allFolowerpost)
+        // }
+         
+// })
 //---------- create a dummie post -----------------
 router.post('/', async (req, res) =>{
     const newDumPost =  new Dumpost(req.body);
@@ -53,7 +73,7 @@ router.post('/', async (req, res) =>{
         res.status(500).json({message: err.message})
     }
 })
-//---------- create a dummie post -----------------
+//---------- edit a specific post -----------------
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
     try {
