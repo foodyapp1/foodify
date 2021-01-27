@@ -31,6 +31,16 @@
         placeholder="Password"
         v-model="password"
       />
+      
+      <div class="pop-btn">
+        <label for="file">Upload an image</label>
+        <input 
+          type="file"
+          ref="file"
+          @change="selectFile"
+        />
+      </div>
+      <div>
       <span
         @click="
           checkemptyinput(),
@@ -50,6 +60,7 @@
           >Register</vs-button
         >
       </span>
+      </div>
     </vs-popup>
   </div>
 </template>
@@ -59,7 +70,6 @@ import slugify from "slugify";
 let bcrypt = require("bcryptjs");
 const axios = require("axios");
 export default {
-  /* eslint-disable */
 
   name: "Signup",
   data() {
@@ -69,27 +79,37 @@ export default {
       fname: "",
       email: "",
       password: "",
+      file: ""
     };
   },
   methods: {
+    selectFile(){
+      this.file = this.$refs.file.files[0];
+    },
     async signup(username, useremail, password) {
       var salt = bcrypt.genSaltSync(10);
       var hash = bcrypt.hashSync(password, salt);
       try {
-        const resp = await axios.post(
-          "http://localhost:3000/api/loginsignup/signup",
-
-          {
+        // eslint-disable-next-line
+        const formData = new FormData();
+        formData.append('file', this.file);
+        const imgUrl = await axios.post('/api/uploadtest/test', formData)
+        // eslint-disable-next-line
+        console.log('secure url :', imgUrl.data);
+        // eslint-disable-next-line
+        const resp = await axios.post("/api/loginsignup/signup",{
             username: username,
             handle: slugify(username.toLowerCase()),
             email: useremail,
             password: hash,
+            image: imgUrl.data
           }
         );
         this.popupActivo = false;
-        console.log("saved");
+        // console.log("saved");
       } catch (err) {
         // Handle Error Here
+        // eslint-disable-next-line
         console.error(err);
       }
     },
@@ -144,5 +164,11 @@ export default {
   width: 7.6rem;
   border-radius: 25px;
   margin: 1.2rem 0 1rem 0;
+}
+.pop-btn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

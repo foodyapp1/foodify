@@ -15,7 +15,7 @@
           <span @click="myprofil">{{ name }}</span>
         </vs-navbar-item>
         <vs-navbar-item class="spacing-navbar-element">
-          {{ userStatus }}
+          <span @click="gotoFollowerfeed">Followed Feed</span>
         </vs-navbar-item>
         <vs-navbar-item v-if="userStatus ==='admin'"  class="spacing-navbar-element">
           <span @click="adminDashboard">Admin dashboard</span>
@@ -66,6 +66,7 @@ export default {
       Cookies.remove("name");
       Cookies.remove("_id");
       Cookies.remove("status");
+      Cookies.remove("img");
       window.location.replace('/');
     },
     adminDashboard(){
@@ -74,8 +75,11 @@ export default {
     goToPost(id){
       this.$router.push(`/post/${id}`)
     },
-     myprofil(){
+    myprofil(){
     this.$router.push('/myprofil')
+    },
+    gotoFollowerfeed(){
+      this.$router.push('/followers')
     }
   },
 };

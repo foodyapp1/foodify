@@ -15,7 +15,7 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  useremail: {
+  email: {
     type: String,
     required: true,
     unique: true,
@@ -32,6 +32,7 @@ const userSchema = new Schema({
   },
   followers: {
     type: Array,
+    default: []
   },
 
   location: {
@@ -42,6 +43,10 @@ const userSchema = new Schema({
     type: String,
     default: null,
   },
+  followingYou:{
+    type : Number,
+    default: 0
+  }
 });
 
 const users = model("users", userSchema);

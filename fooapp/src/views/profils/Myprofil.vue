@@ -13,9 +13,6 @@
         <vs-navbar-item class="spacing-navbar-element">
           <span @click="myprofil">{{ name }}</span>
         </vs-navbar-item>
-        <vs-navbar-item class="spacing-navbar-element">
-          {{ userStatus }}
-        </vs-navbar-item>
           <vs-navbar-item class="spacing-navbar-element">
           <span  @click="goMAinFeed">Main Fedd</span>
          </vs-navbar-item>
@@ -27,55 +24,55 @@
         </vs-navbar-item>
       </vs-navbar>
       <div class="profil-main-info">
-      <vs-avatar class="avaatar" size="150px" src="https://avatars2.githubusercontent.com/u/31676496?s=460&v=4"/>
+      <vs-avatar class="avaatar" size="150px" :src= profileimage />
        <h2 class="profil-username"> Welcome {{ name }} </h2>
-       <div class="profil-interact-info">
-         <vs-row vs-justify="center">
-          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
-          <vs-card>
-          <div slot="header">
-          <h4>
-        Followers under-constraction
-          </h4>
-          </div>
-          </vs-card>
-          </vs-col>
-          </vs-row>
-           <vs-row vs-justify="center">
-          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
-          <vs-card>
-          <div slot="header">
-          <h4>
-         Followed-under constraction
-          </h4>
-          </div>
-          </vs-card>
-          </vs-col>
-          </vs-row>
-           <vs-row vs-justify="center">
-          <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
-          <vs-card>
-          <div slot="header">
-          <h4>
-         Likes : {{mylikes}}
-          </h4>
-          </div>
-          </vs-card>
-          </vs-col>
-          </vs-row>
-       </div>
-         <vs-row vs-justify="center">
+        <div class="profil-interact-info">
+          <vs-row vs-justify="center">
+            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
+            <vs-card>
+            <div slot="header">
+            <h4>
+              Followers under-constraction
+            </h4>
+            </div>
+            </vs-card>
+            </vs-col>
+            </vs-row>
+            <vs-row vs-justify="center">
+            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
+            <vs-card>
+            <div slot="header">
+            <h4>
+              Followed-under constraction
+            </h4>
+            </div>
+            </vs-card>
+            </vs-col>
+            </vs-row>
+            <vs-row vs-justify="center">
+            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
+            <vs-card>
+            <div slot="header">
+            <h4>
+              Likes : {{mylikes}}
+            </h4>
+            </div>
+            </vs-card>
+            </vs-col>
+            </vs-row>
+            </div>
+          <vs-row vs-justify="center">
           <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="5" vs-sm="12">
           <vs-card>
           <div slot="header">
           <h4>
-         My posts
+            My posts
           </h4>
           </div>
           </vs-card>
           </vs-col>
           </vs-row>
-          <Profilfeed />
+          <Profilfeed :userId="userId"/>
      </div>
      <Clicktopost />
    </div>   
@@ -90,21 +87,25 @@ export default {
    components:{
        Profilfeed,
        Clicktopost
-   },
-     data: () => ({
-    name: Cookies.get("name"),
-     userId: Cookies.get("_id"),
-    userStatus: Cookies.get("status"),
-    popupActivo: false,
-    type: "type",
-    activeItem: "activeItem",
-    mylikes:null,
-  }),
-async mounted(){
-    const mylikes= await axios.get(`/api/likes/mylike/${this.userId}`)
-    if(mylikes){
-        this.mylikes=mylikes.data.length
-    }
+    },
+    data: () => ({
+      profileimage: "",
+      name: Cookies.get("name"),
+      userId: Cookies.get("_id"),
+      userStatus: Cookies.get("status"),
+      popupActivo: false,
+      type: "type",
+      activeItem: "activeItem",
+      mylikes:null,
+    }),
+    async mounted(){
+      const mylikes= await axios.get(`/api/likes/mylike/${this.userId}`)
+      if(mylikes){
+          this.mylikes=mylikes.data.length
+      }
+      let string = Cookies.get('img');
+      let target = string.search('upload/');
+      this.profileimage = string.slice(0,target+7) + 'w_1000,c_fill,ar_1:1,g_auto,r_max/' + string.slice(target+7);
 },
 
   methods: {
@@ -112,6 +113,7 @@ async mounted(){
       Cookies.remove("name");
       Cookies.remove("_id");
       Cookies.remove("status");
+      Cookies.remove("img");
       document.location.replace('/');
     },
     adminDashboard(){

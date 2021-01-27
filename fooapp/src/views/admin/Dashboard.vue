@@ -14,7 +14,7 @@
                     admin panel
                 </vs-navbar-item>
                 <vs-navbar-item class="spacing-navbar-element">
-                    <span>{{ name }}</span>
+                    <span  @click="myprofil">{{ name }}</span>
                 </vs-navbar-item>
                 <vs-navbar-item class="spacing-navbar-element">
                    <span  @click="goMAinFeed">Main Fedd</span>
@@ -167,10 +167,14 @@ const Cookies = require("js-cookie");
                 Cookies.remove("name");
                 Cookies.remove("_id");
                 Cookies.remove("status");
+                Cookies.remove("img");
                 document.location.replace('/');
             },
             goMAinFeed(){
                 window.location.replace('/mainfeed');
+            },
+            myprofil(){
+                this.$router.push('/myprofil')
             }
         }
     }

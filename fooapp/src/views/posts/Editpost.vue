@@ -87,6 +87,7 @@ import Cookies from 'js-cookie'
                 Cookies.remove("name");
                 Cookies.remove("_id");
                 Cookies.remove("status");
+                Cookies.remove("img");
                 window.location.replace('/');
             },
             adminDashboard(){

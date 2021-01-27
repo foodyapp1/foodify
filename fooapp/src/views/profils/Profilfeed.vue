@@ -1,6 +1,7 @@
 <template>
      <vs-row class="mypost-feed-display" vs-justify="center">
-          <vs-col vs-justify="center" vs-align="center" vs-w="4" vs-sm="12" v-for="(post, i) in myposts" :key="post._id">
+        <vs-col vs-justify="center" vs-align="center" vs-w="4" vs-sm="12" v-for="(post, i) in myposts" :key="post._id">
+          <div class="clicable-pointer" @click="goToPost(post._id)">
           <vs-card class="cardx">
           <div slot="header">
           <h4>
@@ -15,22 +16,26 @@
           </div>
           <div slot="footer">
           <vs-row vs-justify="flex-end">
-          <vs-button color="danger" type="gradient" class="my-profile-bttn" @click="deletePost(post._id, i)">Delete</vs-button>
-          <vs-button color="warning" type="gradient" class="my-profile-bttn" @click="goToEdit(post._id)">Edit</vs-button>
+          <vs-button color="danger" type="gradient" class="my-profile-bttn" v-if="curentuserId === userId" @click="deletePost(post._id, i)">Delete</vs-button>
+          <vs-button color="warning" type="gradient" class="my-profile-bttn" v-if="curentuserId === userId" @click="goToEdit(post._id)">Edit</vs-button>
           </vs-row>
           </div>
           </vs-card>
-          </vs-col>
-          </vs-row>
+          </div>
+        </vs-col>
+      </vs-row>
 </template>
 <script>
 import axios from 'axios'
 const Cookies = require("js-cookie");
 export default {
     name:"Profilfeed",
+    props:{
+      userId: String,
+    },
     data: () => ({
-     userId: Cookies.get("_id"),
-     myposts:null,
+      curentuserId: Cookies.get("_id"),
+      myposts:null,
     }),
      async mounted(){
         const mypost= await axios.get(`/api/dummieposts/mypost/${this.userId}`)
@@ -53,7 +58,10 @@ export default {
       },
       goToEdit(id){
         this.$router.push(`/editpost/${id}`);
-      }
+      },
+      goToPost(id){
+      this.$router.push(`/post/${id}`)
+      },
   }
 }
 </script>
@@ -66,5 +74,8 @@ export default {
 }
 .my-profile-bttn{
     margin-left: 1.4rem;
+}
+.clicable-pointer{
+  cursor: pointer;
 }
 </style>
