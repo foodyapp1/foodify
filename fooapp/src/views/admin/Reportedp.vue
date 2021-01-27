@@ -1,5 +1,5 @@
 <template>
-        <vs-table v-if="reports.length">
+        <vs-table v-if="reports && reports.length">
             <vs-tr>
                 <vs-th>
                 report id
@@ -27,7 +27,9 @@
                 {{ tr.user_Id }}
                 </vs-td>
                 <vs-td class="delete-the-user">
-                <span @click="deleteReported(tr.post_Id, tr._id, i)">delete</span>
+                <span class="material-icons" @click="deleteReported(tr.post_Id, tr._id, i)">
+                    delete
+                </span>
                 </vs-td>
             </vs-tr>
         </vs-table>
@@ -38,7 +40,7 @@ import axios from "axios"
     export default {
         name : 'Reportedp',
         data: () => ({
-            reports : [],
+            reports : null,
         }),
         async mounted(){
             // eslint-disable-next-line
@@ -51,9 +53,9 @@ import axios from "axios"
                 const deletepost = await axios.delete(`/api/dummieposts/${idPost}`);
                 if(deletereport && deletepost){
                     this.reports.splice(index, 1);
-                    alert("post deleted for eternity !")
+                    alert("user deleted for eternity !")
                 } else {
-                    alert("error user deletion process !")
+                    alert("error deletion process !")
                 }
             }
         }
