@@ -54,6 +54,8 @@ const Cookies = require("js-cookie");
         name: "Report",
         props: {
             postId: String,
+            posttitle: String,
+            postUserName: String,
         },
         data: ()=> ({
             abuse:false,
@@ -69,8 +71,8 @@ const Cookies = require("js-cookie");
             myreportId : null,
         }),
         async mounted(){
-            //make an axis call for the reports related to this post and run a compareson
-                //if user Id exixt than swhitch reported to true and run conditiona redering,
+            //make an axios call for the reports related to this post and run a compareson
+                //if user Id exist than swhitch reported to true and run conditional redering,
             const allreportonpost = await axios.get(`/api/report/${this.postId}`);
             // console.log(allreportonpost.data);
             allreportonpost.data.forEach(element => {
@@ -91,6 +93,8 @@ const Cookies = require("js-cookie");
                  const report = await axios.post("/api/report/", {
                     post_Id: this.postId,
                     user_Id: this.userId,
+                    reportedName: this.postUserName,
+                    reportedPostName: this.posttitle,
                     inappropriate: this.inappropriate,
                     hate: this.hate,
                     abuse: this.abuse

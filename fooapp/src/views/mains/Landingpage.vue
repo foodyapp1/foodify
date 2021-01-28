@@ -79,7 +79,7 @@ export default {
           Cookies.set("name", resp.data.username);
           Cookies.set("_id", resp.data._id);
           Cookies.set("status", resp.data.status);
-          console.log(resp.data.status);
+          // console.log(resp.data.status);
           Cookies.set("img",resp.data.image)
 
           document.location.reload(false);
