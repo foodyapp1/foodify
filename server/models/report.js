@@ -9,6 +9,14 @@ user_Id:{
     type:String,
     required:true,
 },
+reportedName:{
+    type:String,
+    required:true,
+},
+reportedPostName:{
+    type:String,
+    required:true,
+},
 date: {
     type: Date,
     default: Date.now,
@@ -17,7 +25,6 @@ inappropriate:{
     type:Boolean,
     required:true,
 },
-
 hate:{
     type:Boolean,
     required:true,

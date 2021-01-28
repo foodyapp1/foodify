@@ -14,7 +14,7 @@
           <span @click="myprofil">{{ name }}</span>
         </vs-navbar-item>
           <vs-navbar-item class="spacing-navbar-element">
-          <span  @click="goMAinFeed">Main Fedd</span>
+          <span  @click="goMAinFeed">Main Feed</span>
          </vs-navbar-item>
         <vs-navbar-item v-if="userStatus ==='admin'"  class="spacing-navbar-element">
           <span @click="adminDashboard">Admin dashboard</span>
@@ -32,18 +32,7 @@
             <vs-card>
             <div slot="header">
             <h4>
-              Followers under-constraction
-            </h4>
-            </div>
-            </vs-card>
-            </vs-col>
-            </vs-row>
-            <vs-row vs-justify="center">
-            <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
-            <vs-card>
-            <div slot="header">
-            <h4>
-              Followed-under constraction
+              Followers : {{myfollowers}}
             </h4>
             </div>
             </vs-card>
@@ -93,6 +82,7 @@ export default {
       name: Cookies.get("name"),
       userId: Cookies.get("_id"),
       userStatus: Cookies.get("status"),
+      myfollowers: 0,
       popupActivo: false,
       type: "type",
       activeItem: "activeItem",
@@ -100,8 +90,11 @@ export default {
     }),
     async mounted(){
       const mylikes= await axios.get(`/api/likes/mylike/${this.userId}`)
-      if(mylikes){
-          this.mylikes=mylikes.data.length
+      const followers= await axios.get(`/api/loginsignup/${this.userId}`);
+      if(mylikes && followers){
+        // console.log(followers.data)
+          this.mylikes= mylikes.data.length;
+          this.myfollowers= followers.data.followingYou
       }
       let string = Cookies.get('img');
       let target = string.search('upload/');

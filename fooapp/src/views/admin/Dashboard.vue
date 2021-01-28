@@ -26,22 +26,13 @@
         </div>
 
         <div class="main-data-feed-admin">
-            <vs-row vs-justify="center">
-                <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="10" vs-sm="12">
-                <vs-card>
-                <div slot="header">
-                <h4>
-                    Main statistics
-                </h4>
-                </div>
-                <div class="main-data-feed-admin-inside">
-                
+            <!-- set 01 -->
             <vs-row vs-justify="center">
                 <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
                 <vs-card>
                 <div slot="header">
                 <h4>
-                    Users counter
+                    Users
                 </h4>
                 </div>
                 <div>
@@ -50,52 +41,67 @@
                 </vs-card>
                 </vs-col>
             </vs-row>
+            <!-- set 02 -->
             <vs-row vs-justify="center">
                 <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12" >
                 <vs-card>
                 <div slot="header">
                 <h4>
-                    Posts counter
+                    Posts
                 </h4>
                 </div>
                 <div >
-                    <span>All Posts : {{allposts}} </span>
+                    <span>All Posts count: {{allposts}} </span>
                 </div>
                 </vs-card>
                 </vs-col>
             </vs-row>
+            <!-- set 03 -->
             <vs-row vs-justify="center">
                 <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
                 <vs-card>
                 <div slot="header">
                 <h4>
-                    interactions
+                    Likes
                 </h4>
                 </div>
                 <div>
-                    <span> Under construction</span>
+                    <span> all likes count : {{alllikes}} </span>
                 </div>
                 </vs-card>
                 </vs-col>
             </vs-row>
+            <!-- set 04 -->
             <vs-row vs-justify="center">
                 <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
                 <vs-card>
                 <div slot="header">
                 <h4>
-                    Commentaries counter
+                    Reports
                 </h4>
                 </div>
                 <div>
-                    <span>all commentarys : {{allcoommentaries}} </span>
+                    <span> all reports count : {{allreports}} </span>
+                </div>
+                </vs-card>
+                </vs-col>
+            </vs-row>
+            <!-- set 05 -->
+            <vs-row vs-justify="center">
+                <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="12" vs-sm="12">
+                <vs-card>
+                <div slot="header">
+                <h4>
+                    Commentaries
+                </h4>
+                </div>
+                <div>
+                    <span>all comments count : {{allcoommentaries}} </span>
                 </div>
                 </vs-card>
                 </vs-col>
                 </vs-row>
-                </div>
-                </vs-card>
-                </vs-col>
-            </vs-row>
+            
         </div>
             <vs-row vs-justify="center">
                 <vs-col type="flex" vs-justify="center" vs-align="center" vs-w="10" vs-sm="12">
@@ -155,12 +161,18 @@ const Cookies = require("js-cookie");
             reportedPostsStats: false
         }),
         async mounted(){
-            const alluser = await axios.get('/api/loginsignup/');
-            this.allusers = alluser.data.length;
+            //all axis call for data
+            const alluser = await axios.get('/api/loginsignup/');          
             const allpostsDum = await axios.get("/api/dummieposts");
-            this.allposts = allpostsDum.data.length;
             const allcomms = await axios.get("/api/comments/");
+            const alllikes = await axios.get("/api/likes/")
+            const allreports = await axios.get("/api/report/")
+            //assigniong values for stats
+            this.allposts = allpostsDum.data.length;
+            this.allusers = alluser.data.length;
             this.allcoommentaries = allcomms.data.length;
+            this.alllikes = alllikes.data.length;
+            this.allreports = allreports.data.length;
         },
         methods: {
             logout() {
@@ -197,13 +209,8 @@ span {
   cursor: pointer;
 }
 .main-data-feed-admin{
-    width: 100%;
-    margin: 4rem auto;
-    display: flex; 
-}
-.main-data-feed-admin-inside{
-    width: 95%;
-    margin: 1rem auto;
+    width: 90%;
+    margin: 8rem auto;
     display: flex;
 }
 .likes-color{
