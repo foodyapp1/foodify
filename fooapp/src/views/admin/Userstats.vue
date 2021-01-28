@@ -24,13 +24,13 @@
                 <span>{{ tr.username }}</span>
                 </vs-td>
                 <vs-td>
-                {{ tr.status }}
+                    {{ tr.email }}
                 </vs-td>
                 <vs-td>
-                {{ tr.useremail }}
+                    {{ tr._id }}
                 </vs-td>
                 <vs-td>
-                {{ tr._id }}
+                    {{ tr.status }}
                 </vs-td>
                 <vs-td class="delete-the-user">
                 <span class="material-icons" @click="deleteUser(tr._id, i)">delete</span>

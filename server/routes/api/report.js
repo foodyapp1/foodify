@@ -2,7 +2,7 @@ const Report = require("../../models/report");
 const { Router } = require("express");
 const router = Router();
 
-//-------get specific reports ------------
+//-------get all reports ------------
 router.get('/', async (req, res) =>{
     try{
         const allRepoerts = await Report.find();

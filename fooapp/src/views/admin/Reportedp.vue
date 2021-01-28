@@ -2,13 +2,19 @@
         <vs-table v-if="reports && reports.length">
             <vs-tr>
                 <vs-th>
-                report id
+                report ID
                 </vs-th>
                 <vs-th>
-                post id
+                Post Title
                 </vs-th>
                 <vs-th>
-                Owner Id
+                Post id
+                </vs-th>
+                <vs-th>
+                Username
+                </vs-th>
+                <vs-th>
+                User ID
                 </vs-th>
                 <vs-th>
                 delete post
@@ -20,14 +26,25 @@
                 <vs-td>
                 <span>{{ tr._id }}</span>
                 </vs-td>
+                 <vs-td>
+                <span>{{ tr.reportedPostName }}</span>
+                </vs-td>
+                <vs-td >
+                <span class="pointing-to-click"  @click="goToPost(tr.post_Id)" >{{ tr.post_Id }}</span>
+                </vs-td>
                 <vs-td>
-                {{ tr.post_Id }}
+                {{ tr.reportedName }}
                 </vs-td>
                 <vs-td>
                 {{ tr.user_Id }}
                 </vs-td>
                 <vs-td class="delete-the-user">
-                <span class="material-icons" @click="deleteReported(tr.post_Id, tr._id, i)">
+                <!-- let it be, let it  -->
+                <span class="material-icons let-it-be" @click="keepThePost(tr._id, i)" >
+                    check
+                </span>
+                <!-- delete -->
+                <span class="material-icons kill-the-thing" @click="deleteReported(tr.post_Id, tr._id, i)" >
                     delete
                 </span>
                 </vs-td>
@@ -57,6 +74,18 @@ import axios from "axios"
                 } else {
                     alert("error deletion process !")
                 }
+            },
+            async keepThePost(idreport, index){
+                const deletereport = await axios.delete(`/api/report/${idreport}`);
+                if(deletereport){
+                    this.reports.splice(index, 1);
+                    alert("user deleted for eternity !")
+                } else {
+                    alert("error deletion process !")
+                }
+            },
+            goToPost(id){
+                this.$router.push(`/post/${id}`)
             }
         }
     }
@@ -66,9 +95,17 @@ import axios from "axios"
 span{
     font-size: 1.07rem;
 }
+.pointing-to-click{
+    cursor: pointer;
+    color: cyan;
+}
 .delete-the-user{
     cursor: pointer;
     color: #B01C1D;
     text-align: center;
+}
+.let-it-be{
+    color: #00FF00;
+    margin-right: 1.2rem;
 }
 </style>

@@ -46,8 +46,8 @@
             </div>
             <div>
             <vs-row vs-justify="flex-end">
-            <Likes :postId="this.postId" :postUserId="this.postUserId"/>
-            <Report :postId="this.postId"/>
+            <Likes :postId="this.postId" :postUserId="this.postUserId" />
+            <Report :postId="this.postId" :posttitle="thePost.title" :postUserName="thePost.username"/>
             <vs-button v-if="userStatus === 'admin'" color="danger" type="line" class="showpost-dell-bttn" @click="deletePost">Delete post</vs-button>
             </vs-row>
             </div>
