@@ -16,6 +16,7 @@
             class="inputx"
             placeholder="Email adress"
             v-model="email"
+            @keyup.enter="login(email, password)"
           />
           <vs-input
             type="password"
@@ -23,6 +24,7 @@
             class="inputx"
             placeholder="Password"
             v-model="password"
+            @keyup.enter="login(email, password)"
           />
         </div>
         <vs-button

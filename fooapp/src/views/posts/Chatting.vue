@@ -12,7 +12,7 @@ textsms</span>
         colorin: "#7D1617",
         methods: {
             goToCreatePost(){
-                 window.open('http://localhost:8082')
+                 window.open('http://localhost:8081')
             }
         }
     }
