@@ -1,7 +1,7 @@
 <template>
    <div class="centerx">
               <vs-button v-if="!reported" class="report-bttn-submit-main" @click="popupActivo2 = true" color="warning" type="gradient">Report</vs-button>
-              <vs-button v-if="reported" class="report-bttn-submit-main" @click="popupActivo4 = true" color="warning" type="border">Reported</vs-button>
+              <vs-button v-if="reported" class="report-bttn-submit-main" @click="popupActivo4 = true" color="primary" type="gradient">Reported !</vs-button>
 
     <vs-popup
       classContent="popup-example"
@@ -103,10 +103,6 @@ const Cookies = require("js-cookie");
                 if(report){
                     this.popupActivo3 = true;
                     this.reported = true;
-                    setTimeout(() => {
-                      window.location.reload()
-                    }, 1300)
-                   ;
                 }
              } else{
                alert("please pick a reason")
