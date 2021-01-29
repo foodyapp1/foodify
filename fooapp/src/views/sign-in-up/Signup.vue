@@ -17,12 +17,14 @@
         class="inputx"
         placeholder="Placeholder"
         v-model="fname"
+        @keyup.enter="signup(fname, email, password)"
       />
       <vs-input
         label="email"
         class="inputx"
         placeholder="email"
         v-model="email"
+        @keyup.enter="signup(fname, email, password)"
       />
       <vs-input
         type="password"
@@ -30,6 +32,7 @@
         class="inputx"
         placeholder="Password"
         v-model="password"
+        @keyup.enter="signup(fname, email, password)"
       />
       <vs-input
         type="password"
@@ -37,6 +40,7 @@
         class="inputx"
         placeholder="confirm your password"
         v-model="passwordconf"
+        @keyup.enter="signup(fname, email, password)"
       />
       
       <div class="pop-btn">
