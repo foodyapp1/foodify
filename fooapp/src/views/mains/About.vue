@@ -54,11 +54,7 @@
                 aliquet felis. Mauris a tortor viverra, ornare tellus in,
                 consectetur leo.
                 <br /><br />
-                <span
-                  ><vs-avatar
-                    size="120px"
-                    src="https://previews.123rf.com/images/capeman29/capeman291906/capeman29190600013/128474478-a-cartoon-penis-with-attitude-wearing-sunglasses-and-giving-a-thumbs-up.jpg"
-                /></span>
+                <span></span>
                 Etiam nec nunc nec nisl luctus tincidunt efficitur vitae elit.
                 Vestibulum iaculis nibh commodo neque ultrices lobortis. Cras
                 magna massa, pretium vitae mattis varius, pharetra nec massa.

@@ -7,18 +7,18 @@
             <div class="section__content">
                 <Error :errorMessage="errorMessage" />
                 <p class="section__lead">Welcome Back!</p>
-                <!-- <div class="social">
-                    <OAuth
+                <div class="social">
+                    <!-- <OAuth
                         provider="facebook"
                         icon="logo-facebook"
                         classes="social__item--facebook"
-                    />
-                    <OAuth
+                    /> -->
+                    <!-- <OAuth
                         provider="google"
                         icon="logo-googleplus"
                         classes="social__item--google"
-                    />
-                </div> -->
+                    /> -->
+                </div>
                 <form @submit.prevent="handleSubmit" class="form">
                     <span class="form__lead">
                         <ion-icon name="rocket" class="icon"></ion-icon>We are excited to see you

@@ -1,16 +1,18 @@
 <template>
     <div>
-        <vs-button :color="colorin" text-color="rgb(255, 255, 255)" class="click-to-make-posts" @click="goToCreatePost">+</vs-button>
+        <vs-button color="danger" text-color="rgb(255, 255, 255)" class="click-to-make-posts" @click="goToCreatePost"><span class="material-icons">
+textsms</span>
+</vs-button>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Clicktopost',
-        colorin: "#F29F05",
+        name: 'Chatting',
+        colorin: "#7D1617",
         methods: {
             goToCreatePost(){
-                 this.$router.push("/createpost");
+                 window.open('http://localhost:8082')
             }
         }
     }
@@ -19,7 +21,7 @@
 <style scoped>
 .click-to-make-posts{
     position: fixed;
-    bottom: 3rem;
+    bottom: 7rem;
     right: 3rem;
     width : 3.2rem;
     height: 3.2rem;

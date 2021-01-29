@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app"  >
     <router-view></router-view>
   </div>
 </template>
@@ -19,3 +19,23 @@ export default {
   
 }
 </script>
+<style>
+::-webkit-scrollbar-track
+{
+	border: 1px solid transparent;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #F27405;	
+}
+
+
+</style>

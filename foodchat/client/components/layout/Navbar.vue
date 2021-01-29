@@ -22,11 +22,6 @@
             </ul>
             <ul class="navbar__nav navbar__nav--right" v-if="!isAuthorized">
                 <li class="nav__item">
-                    <a href="https://github.com/dhaouiaziz13" target="_blank" class="nav__link">
-                        <ion-icon name="logo-github" class="navbar__icon"></ion-icon>
-                    </a>
-                </li>
-                <li class="nav__item">
                     <router-link to="/login" class="nav__link nav__link--rounded"
                         >Login</router-link
                     >

@@ -76,11 +76,9 @@ export default {
 }
 .button-nav-spacing {
   width: 7.6rem;
-  border-radius: 25px;
 }
 .button-inside-sign-spacing {
   width: 7.6rem;
-  border-radius: 25px;
   margin: 1.2rem 0 1rem 0;
 }
 </style>

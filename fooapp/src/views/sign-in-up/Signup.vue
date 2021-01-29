@@ -31,6 +31,13 @@
         placeholder="Password"
         v-model="password"
       />
+      <vs-input
+        type="password"
+        label="password confirmation"
+        class="inputx"
+        placeholder="confirm your password"
+        v-model="passwordconf"
+      />
       
       <div class="pop-btn">
         <label for="file">Upload an image</label>
@@ -79,6 +86,7 @@ export default {
       fname: "",
       email: "",
       password: "",
+      passwordconf: "",
       file: ""
     };
   },
@@ -87,31 +95,36 @@ export default {
       this.file = this.$refs.file.files[0];
     },
     async signup(username, useremail, password) {
-      var salt = bcrypt.genSaltSync(10);
-      var hash = bcrypt.hashSync(password, salt);
-      try {
-        // eslint-disable-next-line
-        const formData = new FormData();
-        formData.append('file', this.file);
-        const imgUrl = await axios.post('/api/uploadtest/test', formData)
-        // eslint-disable-next-line
-        console.log('secure url :', imgUrl.data);
-        // eslint-disable-next-line
-        const resp = await axios.post("/api/loginsignup/signup",{
-            username: username,
-            handle: slugify(username.toLowerCase()),
-            email: useremail,
-            password: hash,
-            image: imgUrl.data
-          }
-        );
-        this.popupActivo = false;
-        // console.log("saved");
-      } catch (err) {
-        // Handle Error Here
-        // eslint-disable-next-line
-        console.error(err);
+      if(password === this.passwordconf){
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(password, salt);
+        try {
+          // eslint-disable-next-line
+          const formData = new FormData();
+          formData.append('file', this.file);
+          const imgUrl = await axios.post('/api/uploadtest/test', formData)
+          // eslint-disable-next-line
+          console.log('secure url :', imgUrl.data);
+          // eslint-disable-next-line
+          const resp = await axios.post("/api/loginsignup/signup",{
+              username: username,
+              handle: slugify(username.toLowerCase()),
+              email: useremail,
+              password: hash,
+              image: imgUrl.data
+            }
+          );
+          this.popupActivo = false;
+          // console.log("saved");
+        } catch (err) {
+          // Handle Error Here
+          // eslint-disable-next-line
+          console.error(err);
+        }
+      } else{
+        alert('pasword deoasn\'t match confirmation pattern')
       }
+      
     },
     //////////////////////////////////////////////////
     checkemptyinput() {
@@ -158,11 +171,9 @@ export default {
 }
 .button-nav-spacing {
   width: 7.6rem;
-  border-radius: 25px;
 }
 .button-inside-sign-spacing {
   width: 7.6rem;
-  border-radius: 25px;
   margin: 1.2rem 0 1rem 0;
 }
 .pop-btn{
