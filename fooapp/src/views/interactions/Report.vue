@@ -1,7 +1,7 @@
 <template>
    <div class="centerx">
-              <vs-button v-if="!reported" class="report-bttn-submit-main" @click="popupActivo2 = true" color="warning" type="gradient">Repport</vs-button>
-              <vs-button v-if="reported" class="report-bttn-submit-main" @click="popupActivo4 = true" color="warning" type="border">Repported</vs-button>
+              <vs-button v-if="!reported" class="report-bttn-submit-main" @click="popupActivo2 = true" color="warning" type="gradient">Report</vs-button>
+              <vs-button v-if="reported" class="report-bttn-submit-main" @click="popupActivo4 = true" color="warning" type="border">Reported</vs-button>
 
     <vs-popup
       classContent="popup-example"
@@ -88,6 +88,7 @@ const Cookies = require("js-cookie");
         },
         methods: {
            async sendReport(){
+             if(this.inappropriate || this.hate || this.abuse){
                 this.popupActivo2= false;
                 this.popupActivo3= true;
                  const report = await axios.post("/api/report/", {
@@ -102,7 +103,14 @@ const Cookies = require("js-cookie");
                 if(report){
                     this.popupActivo3 = true;
                     this.reported = true;
+                    setTimeout(() => {
+                      window.location.reload()
+                    }, 1300)
+                   ;
                 }
+             } else{
+               alert("please pick a reason")
+             }
           },
           async deleteReport(){
               const deleteReport = await axios.delete(`/api/report/${this.myreportId}`);

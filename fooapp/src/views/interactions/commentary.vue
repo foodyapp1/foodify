@@ -10,7 +10,7 @@
       <vs-card>
         <div slot="header">
           <h4>
-            Commentaries
+            Comments
           </h4>
         </div>
         <div>
@@ -18,7 +18,7 @@
           <div slot="footer">
             <vs-row vs-justify="flex-end">
               <vs-button color="success" type="gradient" @click="submitcomment"
-                >commnent</vs-button
+                >comment</vs-button
               >
             </vs-row>
           </div>
