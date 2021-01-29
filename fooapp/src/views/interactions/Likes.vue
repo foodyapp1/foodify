@@ -1,6 +1,7 @@
 <template>
     <div>
-        <vs-button color="danger" type="gradient" icon="favorite" class="likes-bttn-stiling-main" @click="likeswitch"> {{counter}} </vs-button>
+        <vs-button v-if="liked" color="danger" type="gradient" icon="favorite" class="likes-bttn-stiling-main" @click="likeswitch"> {{counter}} </vs-button>
+        <vs-button v-if="!liked" color="danger" type="gradient" icon="favorite_border" class="likes-bttn-stiling-main" @click="likeswitch"> {{counter}} </vs-button>
     </div>
 </template>
 
@@ -67,5 +68,6 @@ const Cookies = require("js-cookie");
 <style scoped>
 .likes-bttn-stiling-main{
     margin : 0.5rem 0.6rem;
+    width: 3.4rem;
 }
 </style>

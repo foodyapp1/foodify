@@ -5,13 +5,16 @@
                 report ID
                 </vs-th>
                 <vs-th>
+                Reason(s)
+                </vs-th>
+                <vs-th>
                 Post Title
                 </vs-th>
                 <vs-th>
                 Post id
                 </vs-th>
                 <vs-th>
-                Username
+                Post Owner
                 </vs-th>
                 <vs-th>
                 User ID
@@ -27,6 +30,11 @@
                 <span>{{ tr._id }}</span>
                 </vs-td>
                  <vs-td>
+                <span v-if="tr.inappropriate"> | innappropriate content | </span>
+                <span v-if="tr.hate"> | hate | </span>
+                <span v-if="tr.abuse"> | Abuse | </span>
+                </vs-td>
+                <vs-td>
                 <span>{{ tr.reportedPostName }}</span>
                 </vs-td>
                 <vs-td >
@@ -70,7 +78,7 @@ import axios from "axios"
                 const deletepost = await axios.delete(`/api/dummieposts/${idPost}`);
                 if(deletereport && deletepost){
                     this.reports.splice(index, 1);
-                    alert("user deleted for eternity !")
+                    alert("Post deleted for eternity !")
                 } else {
                     alert("error deletion process !")
                 }
@@ -79,7 +87,7 @@ import axios from "axios"
                 const deletereport = await axios.delete(`/api/report/${idreport}`);
                 if(deletereport){
                     this.reports.splice(index, 1);
-                    alert("user deleted for eternity !")
+                    alert("report deleted")
                 } else {
                     alert("error deletion process !")
                 }

@@ -1,7 +1,7 @@
 <template>
      <vs-row class="mypost-feed-display" vs-justify="center">
         <vs-col vs-justify="center" vs-align="center" vs-w="4" vs-sm="12" v-for="(post, i) in myposts" :key="post._id">
-          <div class="clicable-pointer" @click="goToPost(post._id)">
+          <div class="clicable-pointer" >
           <vs-card class="cardx">
           <div slot="header">
           <h4>
@@ -9,7 +9,7 @@
           </h4>
           </div>
           <div slot="media">
-          <img :src= post.image >
+          <img :src= post.image @click="goToPost(post._id)">
           </div>
           <div>
           <span>{{post.text}}</span>

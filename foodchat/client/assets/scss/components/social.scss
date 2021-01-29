@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     width: 480px;
+    height:25px;
     margin: 0 auto;
 
     @include respond(phone) {
